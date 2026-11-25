@@ -427,7 +427,7 @@ def examples_section():
         <div class="examples">
 {tiles}
         </div>
-        <p class="examples-more"><a class="link-arrow" href="small-business/">More for small and medium businesses</a></p>
+        <p class="examples-more"><a class="link-arrow" href="small-business/">See how we work with smaller teams</a></p>
       </div>
     </section>"""
 
@@ -449,7 +449,7 @@ def home():
         <div>
           <p class="eyebrow">AI &amp; data consulting · Ottawa, Canada</p>
           <h1>You run the business. <em>We handle the AI.</em></h1>
-          <p class="lede">AIDA helps small and medium-sized Canadian businesses put AI to work. We find where it will save time or win revenue, build it properly, and fix the data it depends on. Senior help, without hiring an AI team.</p>
+          <p class="lede">We find where AI will save you time or win you revenue, build it properly, and fix the data it depends on. Senior help, without hiring an AI team.</p>
           <div class="actions">
             {primary_cta("Tell us about your challenge")}
             <a class="link-arrow" href="#examples">See what AI can do for you</a>
@@ -503,8 +503,8 @@ def home():
     </section>
 
 {contact()}"""
-    return layout("", "AI Consulting for Small & Medium Businesses in Canada | AIDA Consulting",
-                  "You run the business, we handle the AI. Senior AI and data consulting for small and medium-sized Canadian businesses, based in Ottawa.",
+    return layout("", "AI & Data Consulting in Ottawa, Canada | AIDA Consulting Solutions",
+                  "You run the business, we handle the AI. Senior AI and data consulting, based in Ottawa: we find where AI pays off, build it properly, and fix the data it depends on.",
                   body, "")
 
 
