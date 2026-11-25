@@ -248,7 +248,14 @@ R = {
 
 # ---------------------------------------------------------------- home page
 
-EXPERIENCE = ["Stripe", "Shopify", "Fullscript", "IRCC", "EDC"]
+# (name, logo file in assets/logos or None for plain text, title shown on hover)
+EXPERIENCE = [
+    ("Stripe", "stripe.svg", "Stripe"),
+    ("Shopify", "shopify.svg", "Shopify"),
+    ("Fullscript", "fullscript.svg", "Fullscript"),
+    ("IRCC", None, "Immigration, Refugees and Citizenship Canada"),
+    ("EDC", "edc.svg", "Export Development Canada"),
+]
 
 # The end-to-end path from raw data to AI in production, in two groups of three
 # steps: (icon, title, what it is, where we pitch in, badge or None).
@@ -311,13 +318,6 @@ WHY = [
     ("Built to hand over", "Everything is documented, tested and taught. The goal is a team that owns the result, not one that depends on us."),
 ]
 
-STACK = {
-    "AI": "LangGraph, LangChain, Pydantic AI, Hugging Face, OpenAI models, PyTorch, TensorFlow",
-    "Data": "PySpark, dbt, Airflow, Presto/Trino, BigQuery, PostgreSQL, Tableau, Apache Superset, SAS Viya",
-    "Software": "Python, Ruby, Rails, React, GraphQL, TypeScript",
-    "Infrastructure": "GCP, AWS, Terraform, Kubernetes",
-}
-
 STEPS_HOME = [
     ("Understand", "We start with your business and the questions you need answered, and map the data and AI challenges standing in the way."),
     ("Build", "We deliver in small, working increments, so you see value early and can steer as priorities change."),
@@ -335,11 +335,19 @@ def card_link(link):
     return '\n            <a class="link-arrow card-link" href="%s">Learn more</a>' % link
 
 
-def experience():
-    names = "".join(f"<li>{n}</li>" for n in EXPERIENCE)
+def experience(base=""):
+    items = []
+    for name, logo, title in EXPERIENCE:
+        if logo:
+            cls = logo.split(".")[0]
+            items.append(f'<li><img class="exp-logo exp-{cls}" src="{base}assets/logos/{logo}" alt="{title}" title="{title}"></li>')
+        else:
+            items.append(f'<li class="exp-text" title="{title}">{name}</li>')
     return f"""      <div class="wrap exp">
-        <p>Our principal’s experience</p>
-        <ul>{names}</ul>
+        <p>Where our principal has worked</p>
+        <ul>
+          {(chr(10) + "          ").join(items)}
+        </ul>
       </div>"""
 
 
@@ -420,10 +428,6 @@ def home():
           </article>""" for k, t, best, desc, li in ENGAGE)
 
     why = "\n".join(f"          <li><h3>{a}</h3><p>{b}</p></li>" for a, b in WHY)
-    stack = "\n".join(
-        f"          <div><dt>{k}</dt><dd>" + "".join(f"<span>{x}</span>" for x in v.split(", ")) + "</dd></div>"
-        for k, v in STACK.items())
-
     body = f"""    <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div>
@@ -508,7 +512,7 @@ def home():
         <div>
           <p class="eyebrow">Who you’ll work with</p>
           <h2>Led by a practitioner.</h2>
-          <p class="section-intro">Fluent in the tools below, and comfortable picking up yours.</p>
+          <p class="section-intro">We work in the stack you already have, and recommend changing it only when there is a clear reason to.</p>
         </div>
         <article class="person">
           {avatar()}
@@ -519,9 +523,6 @@ def home():
             <a class="link-arrow" href="{LINKEDIN}" target="_blank" rel="noopener">Connect on LinkedIn</a>
           </div>
         </article>
-        <dl class="stack">
-{stack}
-        </dl>
       </div>
     </section>
 
@@ -592,7 +593,7 @@ def landing(p):
 {points}
         </ul>
       </div>
-{experience()}
+{experience("../")}
     </section>
 
     <section class="section section-alt" id="problem">
@@ -754,7 +755,7 @@ PAGES = [
         "h1": "Data pipelines that <em>just work.</em>",
         "lede": "Slow jobs, broken dashboards, a cloud bill nobody can explain. We are senior data engineers who fix the unglamorous foundations: pipelines, warehouse models, testing and cost. It is the work everything else depends on, AI included.",
         "cta": "Talk to a data engineer",
-        "points": ["dbt, Airflow, PySpark, Trino", "BigQuery, PostgreSQL, GCP, AWS", "Batch and real-time streaming", "Testing, CI/CD and observability"],
+        "points": ["dbt, Airflow, PySpark, Trino", "BigQuery, PostgreSQL, GCP, AWS", "Or the stack you already run", "Testing, CI/CD and observability"],
         "pain_heading": "The boring work is where the value is.",
         "fact": ("3× faster", "A business-critical pipeline processing 80 million rows an hour, re-engineered by our principal to run in a third of the time.", "More results below", "#results"),
         "pains": [

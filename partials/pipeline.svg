@@ -1,41 +1,72 @@
-<figure class="pipeline" aria-label="Diagram: raw sources flow through engineering and science into a data product">
-          <svg viewBox="0 0 440 360" role="img" aria-hidden="true">
+<figure class="pipeline" aria-label="Diagram: documents, databases and events flow through pipelines and quality checks into an AI layer, which powers assistants, automation and insights. Feedback from use improves the data.">
+          <svg viewBox="0 0 480 392" role="img" aria-hidden="true">
+            <g class="p-cap" text-anchor="middle">
+              <text x="46" y="24">SOURCES</text>
+              <text x="170" y="24">FOUNDATIONS</text>
+              <text x="296" y="24">AI</text>
+              <text x="434" y="24">IN USE</text>
+            </g>
             <g class="p-lines" fill="none" stroke-width="1.5">
-              <path d="M92 70 C150 70 150 180 208 180"/>
-              <path d="M92 180 H208"/>
-              <path d="M92 290 C150 290 150 180 208 180"/>
-              <path d="M272 180 H348"/>
+              <path d="M76 75C106 75 104 185 132 185"/>
+              <path d="M76 185H132"/>
+              <path d="M76 295C106 295 104 185 132 185"/>
+              <path d="M208 185H260"/>
+              <path d="M332 185C366 185 370 75 404 75"/>
+              <path d="M332 185H404"/>
+              <path d="M332 185C366 185 370 295 404 295"/>
             </g>
             <g class="p-flow" fill="none" stroke-width="2" stroke-linecap="round">
-              <path d="M92 70 C150 70 150 180 208 180"/>
-              <path d="M92 180 H208"/>
-              <path d="M92 290 C150 290 150 180 208 180"/>
-              <path d="M272 180 H348"/>
+              <path d="M76 75C106 75 104 185 132 185"/>
+              <path d="M76 185H132"/>
+              <path d="M76 295C106 295 104 185 132 185"/>
+              <path d="M208 185H260"/>
+              <path d="M332 185C366 185 370 75 404 75"/>
+              <path d="M332 185H404"/>
+              <path d="M332 185C366 185 370 295 404 295"/>
             </g>
+            <path class="p-loop" d="M434 344C434 380 46 380 46 350"/>
+            <path class="p-loop-head" d="M41 352 46 341 51 352z"/>
             <g class="p-node">
-              <rect x="28" y="46" width="64" height="48" rx="10"/>
-              <rect x="28" y="156" width="64" height="48" rx="10"/>
-              <rect x="28" y="266" width="64" height="48" rx="10"/>
+              <rect x="16" y="52" width="60" height="46" rx="10"/>
+              <rect x="16" y="162" width="60" height="46" rx="10"/>
+              <rect x="16" y="272" width="60" height="46" rx="10"/>
             </g>
-            <g class="p-glyph" fill="none" stroke-width="1.6" stroke-linecap="round">
-              <path d="M46 62h28M46 70h28M46 78h18"/>
-              <ellipse cx="60" cy="172" rx="13" ry="5"/><path d="M47 172v16c0 2.8 5.8 5 13 5s13-2.2 13-5v-16"/>
-              <path d="M46 300l8-10 7 6 13-16"/>
+            <g class="p-glyph" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 68h28M32 75h28M32 82h18"/>
+              <ellipse cx="46" cy="178" rx="12" ry="4.5"/><path d="M34 178v14c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-14"/>
+              <path d="M30 295h8l4-9 7 18 4-9h9"/>
             </g>
-            <circle class="p-core" cx="240" cy="180" r="32"/>
-            <path class="p-core-mark" d="M228 192l12-24 12 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect class="p-out" x="348" y="140" width="68" height="80" rx="12"/>
+            <rect class="p-stage" x="132" y="147" width="76" height="76" rx="14"/>
+            <g class="p-stage-glyph" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M170 164l17 7v12c0 11-7 19-17 23-10-4-17-12-17-23v-12z"/>
+              <path d="M162 185l6 6 11-13"/>
+            </g>
+            <circle class="p-core" cx="296" cy="185" r="36"/>
+            <path class="p-core-mark" d="M282 199l14-28 14 28" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <g class="p-node">
+              <rect x="404" y="52" width="60" height="46" rx="10"/>
+              <rect x="404" y="162" width="60" height="46" rx="10"/>
+              <rect x="404" y="272" width="60" height="46" rx="10"/>
+            </g>
+            <g class="p-glyph" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M421 65h26v15h-13l-7 6v-6h-6z"/>
+              <path d="M437 174l-9 13h7l-2 10 9-13h-7z"/>
+            </g>
             <g class="p-out-glyph">
-              <rect x="362" y="186" width="8" height="20" rx="2"/>
-              <rect x="378" y="172" width="8" height="34" rx="2"/>
-              <rect x="394" y="156" width="8" height="50" rx="2"/>
+              <rect x="423" y="297" width="5" height="10" rx="1.5"/>
+              <rect x="431.5" y="290" width="5" height="17" rx="1.5"/>
+              <rect x="440" y="283" width="5" height="24" rx="1.5"/>
             </g>
-            <g class="p-label">
-              <text x="60" y="118" text-anchor="middle">events</text>
-              <text x="60" y="228" text-anchor="middle">databases</text>
-              <text x="60" y="338" text-anchor="middle">metrics</text>
-              <text x="240" y="238" text-anchor="middle">engineering + AI</text>
-              <text x="382" y="244" text-anchor="middle">data product</text>
+            <g class="p-label" text-anchor="middle">
+              <text x="46" y="114">documents</text>
+              <text x="46" y="224">databases</text>
+              <text x="46" y="334">events</text>
+              <text x="170" y="242">pipelines + quality</text>
+              <text x="296" y="242">AI + evaluation</text>
+              <text x="434" y="114">assistants</text>
+              <text x="434" y="224">automation</text>
+              <text x="434" y="334">insights</text>
+              <text x="240" y="388">feedback improves the data</text>
             </g>
           </svg>
         </figure>

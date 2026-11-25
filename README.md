@@ -42,3 +42,11 @@ Then open http://localhost:8000.
 ## Deploy
 
 Hosted on GitHub Pages from the `main` branch (Settings → Pages → Deploy from a branch → `main` / root). Every push to `main` publishes.
+
+## Logos
+
+`assets/logos/` holds the Stripe, Shopify, Fullscript and EDC logos shown in the
+"Where our principal has worked" strip. They are trademarks of their owners and are
+used only to identify past and current employers. Stripe, Shopify and EDC files come
+from Wikimedia Commons; the Fullscript file comes from fullscript.com. IRCC is shown
+as text because Government of Canada symbols need Treasury Board authorization.
