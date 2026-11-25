@@ -28,6 +28,7 @@ SRC_GC_AI = "https://www.canada.ca/en/government/system/digital-government/digit
 NAV = [
     ("ai-consulting/", "AI consulting"),
     ("ai-agents/", "AI agents"),
+    ("data-engineering/", "Data engineering"),
     ("ai-ready-data/", "AI-ready data"),
     ("public-sector/", "Public sector"),
 ]
@@ -234,6 +235,7 @@ R = {
     "rules": ("200+ rules", "Automated data quality checks running across more than 30 datasets."),
     "users": ("3,500+ users", "Serving themselves on a tool that monitors 3.2 million business time series a day."),
     "models": ("~300 models", "An enterprise data repository designed to model an entire programme’s data, with a team mentored to build it."),
+    "release": ("2 hours back", "Every release cycle, after deployment preparation for a data team was automated."),
     "trained": ("Team trained", "Architecture documented and developers trained to maintain, test and extend the pipelines after hand-over."),
 }
 
@@ -244,7 +246,9 @@ HOME_START = [
      "Find the use cases that will actually pay off, and get a plan your team can deliver."),
     ("ai-agents/", "chat", "AI agents &amp; assistants", "Stuck at the demo stage?",
      "Assistants, retrieval and agent workflows built and tested for real users."),
-    ("ai-ready-data/", "pipes", "AI-ready data", "Data not ready for AI?",
+    ("data-engineering/", "pipes", "Data engineering", "Pipelines slow or fragile?",
+     "Senior data engineering: pipelines, warehouse models, cloud cost and testing."),
+    ("ai-ready-data/", "check", "AI-ready data", "Data not ready for AI?",
      "Pipelines, models and quality checks that make your data something AI can rely on."),
     ("public-sector/", "shield", "Public sector", "Working in government?",
      "Data quality, architecture and responsible AI, delivered with public-sector rigour."),
@@ -259,7 +263,7 @@ HOME_SERVICES = [
      ["Retrieval (RAG) and agent workflows grounded in your data", "Quality measured by human review and LLM judges", "Internal assistants and chatbots", "Monitoring once it is live"], "ai-agents/"),
     ("Data Engineering", "pipes", "Our pipelines are slow, fragile, or cost too much.",
      "We rebuild the foundations: pipelines that finish on time, data models people can reason about, and a cloud bill that matches the value you get.",
-     ["Reliable batch and real-time pipelines", "A clean, documented warehouse model", "Automated testing and deployment", "Cloud migration and cost reduction"], "ai-ready-data/"),
+     ["Reliable batch and real-time pipelines", "A clean, documented warehouse model", "Automated testing and deployment", "Cloud migration and cost reduction"], "data-engineering/"),
     ("Data Quality &amp; Governance", "shield", "Two dashboards, two different answers. Nobody trusts the numbers.",
      "We find where quality breaks down and put automated checks in place, so problems are caught before your users or your auditors find them.",
      ["Automated quality rules and monitoring", "A testing framework for your pipelines", "Privacy, financial-reporting and data-residency compliance", "Lineage, discovery and master data"], "ai-ready-data/"),
@@ -464,6 +468,26 @@ def home():
 
 # ---------------------------------------------------------------- landing pages
 
+def bridge(b):
+    """Optional call-out linking one service to another."""
+    if not b:
+        return ""
+    source = f' <a class="src" href="{b["src"][1]}" target="_blank" rel="noopener">{b["src"][0]}</a>' if b.get("src") else ""
+    return f"""    <section class="bridge">
+      <div class="wrap bridge-inner">
+        <div>
+          <p class="eyebrow">{b["eyebrow"]}</p>
+          <h2>{b["heading"]}</h2>
+        </div>
+        <div>
+          <p>{b["text"]}{source}</p>
+          <a class="link-arrow" href="../{b["href"]}">{b["link"]}</a>
+        </div>
+      </div>
+    </section>
+"""
+
+
 def landing(p):
     pains = "\n".join(f"          <li>“{x}”</li>" for x in p["pains"])
     offers = "\n".join(f"""          <article class="card">
@@ -485,7 +509,7 @@ def landing(p):
         <aside class="fact">
           <p class="market-num">{fact[0]}</p>
           <p>{fact[1]}</p>
-          <a href="{fact[3]}" target="_blank" rel="noopener">{fact[2]}</a>
+          <a href="{fact[3]}"{'' if fact[3].startswith('#') else ' target="_blank" rel="noopener"'}>{fact[2]}</a>
         </aside>""" if fact else ""
 
     body = f"""    <section class="hero hero-landing" id="top">
@@ -537,6 +561,7 @@ def landing(p):
       </div>
     </section>
 
+{bridge(p.get("bridge"))}
 {results([R[k] for k in p["results"]], p["results_heading"],
          "Drawn from work our principal has led or delivered.")}
 
@@ -591,6 +616,13 @@ PAGES = [
             ("Prove", "We build one use case properly and measure whether it delivers, before you commit to more."),
             ("Scale", "We harden what works, hand it over to your team, and move to the next use case."),
         ],
+        "bridge": {
+            "eyebrow": "One firm, both halves",
+            "heading": "Most AI projects turn into data projects.",
+            "text": "Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. When your AI work runs into a pipeline or data quality problem, we fix that too, so you don’t need a second firm.",
+            "src": ("Gartner, 2025", SRC_GARTNER),
+            "href": "data-engineering/", "link": "See our data engineering work",
+        },
         "results": ["ai", "chatbot", "pb"],
         "results_heading": "AI delivered where accuracy matters.",
         "faq": [
@@ -646,6 +678,59 @@ PAGES = [
         ],
         "contact_heading": "Have an AI idea, or a demo that needs to grow up?",
         "contact_text": "Tell us what you want it to do. We will tell you what it takes to make it reliable.",
+    },
+    {
+        "path": "data-engineering/",
+        "topic": "Data engineering and pipelines",
+        "title": "Data Engineering Consulting | Pipelines, dbt, Airflow, BigQuery | AIDA Consulting",
+        "description": "Senior data engineering consulting in Ottawa, serving Canada. Pipeline build and rescue, warehouse modelling in dbt, cloud migration and cost reduction, testing and CI/CD.",
+        "eyebrow": "Data engineering consulting",
+        "h1": "Data pipelines that <em>just work.</em>",
+        "lede": "Slow jobs, broken dashboards, a cloud bill nobody can explain. We are senior data engineers who fix the unglamorous foundations: pipelines, warehouse models, testing and cost. It is the work everything else depends on, AI included.",
+        "cta": "Talk to a data engineer",
+        "points": ["dbt, Airflow, PySpark, Trino", "BigQuery, PostgreSQL, GCP, AWS", "Batch and real-time streaming", "Testing, CI/CD and observability"],
+        "pain_heading": "The boring work is where the value is.",
+        "fact": ("3× faster", "A business-critical pipeline processing 80 million rows an hour, re-engineered by our principal to run in a third of the time.", "More results below", "#results"),
+        "pains": [
+            "The nightly job takes six hours and fails twice a week.",
+            "Nobody dares touch the pipeline the last person built.",
+            "Our cloud bill doubled and we can’t say why.",
+            "Every release is a manual, nervous afternoon.",
+        ],
+        "offer_heading": "What we fix and build.",
+        "offers": [
+            ("pipes", "Pipelines", "Pipeline build &amp; rescue", "New pipelines built properly, or fragile ones rebuilt so they finish on time, every time.",
+             ["Batch and real-time ingestion", "Orchestration with Airflow", "Point-in-time and snapshot reporting"]),
+            ("screen", "Modelling", "Warehouse &amp; data modelling", "A warehouse people can understand, with one agreed definition for each number that matters.",
+             ["Fact and dimension models in dbt", "Documented, tested transformations", "Metrics defined once and reused"]),
+            ("cloud", "Cloud", "Migration &amp; cost", "Move from on-prem to the cloud, or get more from the cloud you already pay for.",
+             ["Migration planning and delivery", "Automated cost and usage auditing", "Performance tuning of heavy jobs"]),
+            ("check", "Reliability", "Testing, CI/CD &amp; monitoring", "Changes that ship safely, and problems that are caught before your users see them.",
+             ["Automated tests on every change", "Release pipelines for data", "Data quality rules and alerts"]),
+        ],
+        "steps_heading": "Diagnose. Rebuild. Automate.",
+        "steps": [
+            ("Diagnose", "We trace your pipelines end to end and measure where the time, cost and failures actually come from."),
+            ("Rebuild", "We fix the highest-impact pieces first, in small increments you can verify against the old results."),
+            ("Automate", "We add the tests, deployment and monitoring that keep it working, and train your team to run them."),
+        ],
+        "bridge": {
+            "eyebrow": "Thinking about AI next?",
+            "heading": "This is the work that decides whether AI succeeds.",
+            "text": "Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned, and 63% of organizations are not sure their data practices are up to it. Reliable pipelines and tested data are what make the difference.",
+            "src": ("Gartner, 2025", SRC_GARTNER),
+            "href": "ai-consulting/", "link": "See our AI consulting",
+        },
+        "results": ["fast", "saved", "rules", "pb", "users", "release"],
+        "results_heading": "Data engineering, measured.",
+        "faq": [
+            ("Which tools do you work with?", "Most often dbt, Airflow, PySpark, Trino/Presto, BigQuery and PostgreSQL, on GCP or AWS, with Terraform and Kubernetes underneath. We work with the stack you have and only recommend changing it when there is a clear reason."),
+            ("Can you fix what we have, or do you always rebuild?", "We start by measuring what you have. Often a few targeted fixes to the worst pipelines deliver most of the benefit. We recommend a rebuild only when patching would cost more."),
+            ("We are not doing AI. Is this still for us?", "Yes. Reliable pipelines pay for themselves through time saved, lower cloud costs and numbers people trust. If AI comes later, your data will already be ready for it."),
+            ("Do you work with our team or replace it?", "With it. We work alongside your engineers and analysts, and leave documentation, tests and training behind so the work stays maintained."),
+        ],
+        "contact_heading": "Have a pipeline that keeps you up at night?",
+        "contact_text": "Tell us what is slow, broken or expensive. We will tell you what we would look at first.",
     },
     {
         "path": "ai-ready-data/",
