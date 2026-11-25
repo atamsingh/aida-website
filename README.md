@@ -52,9 +52,11 @@ link and every main button becomes "Book a 30-minute call".
 
 ## Contact form
 
-The on-page form posts into the existing "Contact information" Google Form, so
-messages appear in that form's responses. The field ids are at the top of `build.py`.
-Turn on email notifications for new responses in Google Forms to be alerted.
+The on-page form posts to Web3Forms (`WEB3FORMS_KEY` in `build.py`), which emails each
+enquiry to the address registered for that key and tells the page whether it was
+accepted. The thank-you message shows only after that confirmation; otherwise the
+visitor sees an error with the LinkedIn link. A copy of every enquiry is also sent to
+the "Contact Information" Google Form as a backup (field ids at the top of `build.py`).
 
 ## Preview locally
 

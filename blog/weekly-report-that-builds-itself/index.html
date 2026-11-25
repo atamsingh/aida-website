@@ -196,8 +196,11 @@
         </div>
 
         <div class="form-card">
-          <form class="contact-form" action="https://docs.google.com/forms/d/e/1FAIpQLSd4dWFzGbmAxxguMpqVNaVb6ff8SF5sv4adQ7LhOCOJPltsIQ/formResponse" method="post" data-page="Blog: The weekly report that builds itself"
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="post" data-page="Blog: The weekly report that builds itself" data-backup="https://docs.google.com/forms/d/e/1FAIpQLSd4dWFzGbmAxxguMpqVNaVb6ff8SF5sv4adQ7LhOCOJPltsIQ/formResponse"
                 data-name="entry.2005620554" data-email="entry.1045781291" data-phone="entry.1166974658" data-comments="entry.839337160">
+            <input type="hidden" name="access_key" value="3863af07-c2ec-4dc7-83ae-d8c8f4347ba2">
+            <input type="hidden" name="from_name" value="AIDA Consulting website">
+            <input type="hidden" name="subject" value="New enquiry from the website">
             <div class="field-row">
               <label>Name
                 <input type="text" name="name" autocomplete="name" required>
@@ -229,7 +232,7 @@
               <textarea name="message" rows="5" required placeholder="What are you trying to achieve, and what is getting in the way?"></textarea>
             </label>
             <label class="hp" aria-hidden="true">Leave this field empty
-              <input type="text" name="website" tabindex="-1" autocomplete="off">
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
             </label>
             <button class="btn btn-accent" type="submit">Send message</button>
             <p class="form-note">We only use your details to reply to you.</p>
@@ -261,6 +264,6 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="../../assets/contact.js?v=bf958f73" defer></script>
+  <script src="../../assets/contact.js?v=ba1b565b" defer></script>
 </body>
 </html>

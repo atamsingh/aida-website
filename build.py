@@ -15,6 +15,11 @@ SITE = "https://www.aidaconsulting.ca"
 FORM_ID = "1FAIpQLSd4dWFzGbmAxxguMpqVNaVb6ff8SF5sv4adQ7LhOCOJPltsIQ"
 FORM = f"https://docs.google.com/forms/d/e/{FORM_ID}/viewform"
 FORM_POST = f"https://docs.google.com/forms/d/e/{FORM_ID}/formResponse"
+# Web3Forms emails each enquiry to the address registered for this access key and
+# tells the page whether it was accepted. The key is meant to be public.
+# The Google Form above is kept as a silent backup copy of every enquiry.
+WEB3FORMS_URL = "https://api.web3forms.com/submit"
+WEB3FORMS_KEY = "3863af07-c2ec-4dc7-83ae-d8c8f4347ba2"
 FIELD = {"name": "entry.2005620554", "email": "entry.1045781291", "phone": "entry.1166974658", "comments": "entry.839337160"}
 TOPICS = ["AI strategy: where to start", "AI agents and assistants", "Data engineering and pipelines",
           "Data quality and governance", "Public-sector project", "Something else"]
@@ -202,8 +207,11 @@ def contact(heading="Have an AI or data challenge? Let’s talk it through.",
         </div>
 
         <div class="form-card">
-          <form class="contact-form" action="{FORM_POST}" method="post" data-page="{page}"
+          <form class="contact-form" action="{WEB3FORMS_URL}" method="post" data-page="{page}" data-backup="{FORM_POST}"
                 data-name="{FIELD["name"]}" data-email="{FIELD["email"]}" data-phone="{FIELD["phone"]}" data-comments="{FIELD["comments"]}">
+            <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
+            <input type="hidden" name="from_name" value="AIDA Consulting website">
+            <input type="hidden" name="subject" value="New enquiry from the website">
             <div class="field-row">
               <label>Name
                 <input type="text" name="name" autocomplete="name" required>
@@ -229,7 +237,7 @@ def contact(heading="Have an AI or data challenge? Let’s talk it through.",
               <textarea name="message" rows="5" required placeholder="What are you trying to achieve, and what is getting in the way?"></textarea>
             </label>
             <label class="hp" aria-hidden="true">Leave this field empty
-              <input type="text" name="website" tabindex="-1" autocomplete="off">
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
             </label>
             <button class="btn btn-accent" type="submit">Send message</button>
             <p class="form-note">We only use your details to reply to you.</p>
