@@ -2,13 +2,15 @@
 // whether it was accepted. A copy also goes to the Google Form as a silent
 // backup. The thank-you message is shown only after Web3Forms confirms.
 (function () {
-  // Reports a conversion to Google Ads when the tag is installed and a
-  // send_to value is set in the page; otherwise it only notes the event.
+  // Tells the Google tag (when installed) that something worth counting
+  // happened. `name` is the event Google Ads conversions are built from;
+  // `sendTo` is an optional direct Google Ads conversion id.
   function convert(sendTo, name, page) {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: name, page: page });
-    if (sendTo && typeof window.gtag === 'function') {
-      window.gtag('event', 'conversion', { send_to: sendTo });
+    window.dataLayer.push({ event: name, page_name: page });
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, { page_name: page });
+      if (sendTo) window.gtag('event', 'conversion', { send_to: sendTo });
     }
   }
 

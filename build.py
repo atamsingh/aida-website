@@ -29,13 +29,17 @@ LINKEDIN = "https://www.linkedin.com/in/atamsingh"
 BOOKING_URL = "https://calendly.com/atamsingh-aidaconsulting/30min"
 BOOKING_LABEL = "Book a 30-minute call"
 
-# Google Ads conversion tracking. Leave GOOGLE_TAG_ID empty to load no tracking at all.
-# GOOGLE_TAG_ID is the "AW-..." id from the tag snippet Google Ads gives you (it is NOT
-# the 10-digit account number). The two labels are the part after the "/" in each
-# conversion action's send_to value: one for a sent contact form, one for a click on
-# the booking link.
+# Google tag, as supplied by Google Ads. Leave GOOGLE_TAG_ID empty to load no tracking.
+# It can be a Tag Manager container id ("GTM-...") or a Google Ads tag id ("AW-...").
+# The site sends two events to it: "contact_form_submit" when an enquiry is confirmed
+# sent, and "booking_link_click" when a booking button is clicked. Create the
+# conversions in Google Ads from those events.
+# Optional: if Google Ads gives you send_to values of the form "AW-123/AbCdEf", put the
+# "AW-..." id in GOOGLE_ADS_ID and the part after the "/" in the two labels, and the
+# site will also report those conversions directly.
 GOOGLE_ADS_ACCOUNT = "923-620-7990"   # account number, for reference only
-GOOGLE_TAG_ID = ""
+GOOGLE_TAG_ID = "GTM-WK8PRBZP"
+GOOGLE_ADS_ID = ""
 GOOGLE_ADS_LEAD_LABEL = ""
 GOOGLE_ADS_BOOKING_LABEL = ""
 PRIVACY_UPDATED = "November 25, 2026"
@@ -44,14 +48,20 @@ PRIVACY_UPDATED = "November 25, 2026"
 def google_tag():
     if not GOOGLE_TAG_ID:
         return ""
-    return f"""  <script async src="https://www.googletagmanager.com/gtag/js?id={GOOGLE_TAG_ID}"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){{dataLayer.push(arguments);}} gtag('js', new Date()); gtag('config', '{GOOGLE_TAG_ID}');</script>
+    src = "gtm.js" if GOOGLE_TAG_ID.startswith("GTM-") else "gtag/js"
+    config = "" if GOOGLE_TAG_ID.startswith("GTM-") else f"\n    gtag('config', '{GOOGLE_TAG_ID}');"
+    return f"""  <script async src="https://www.googletagmanager.com/{src}?id={GOOGLE_TAG_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());{config}
+  </script>
 """
 
 
 def conv(label):
     """send_to value for a conversion, or empty when tracking is not set up."""
-    return f"{GOOGLE_TAG_ID}/{label}" if GOOGLE_TAG_ID and label else ""
+    return f"{GOOGLE_ADS_ID}/{label}" if GOOGLE_ADS_ID and label else ""
 LOGO = (ROOT / "partials/logo-mark.svg").read_text().strip()
 PIPELINE = (ROOT / "partials/pipeline.svg").read_text().strip()
 
@@ -725,9 +735,12 @@ def home():
 def privacy_page():
     ads = """
         <h2>Advertising measurement</h2>
-        <p>If you reach this site from one of our Google ads, a Google Ads tag records whether you then sent the contact form or clicked the booking link, so we can tell which ads are useful. Google may set cookies in your browser to do this, and handles that information under its own privacy policy. We do not use it to identify you.</p>""" if GOOGLE_TAG_ID else ""
-    cookies = ("Apart from the advertising measurement described below, this site sets no cookies of its own and runs no analytics."
+        <p>Every page of this site loads a Google tag. It lets Google Ads measure whether someone who saw one of our ads went on to send the contact form or click the booking link, so we can tell which ads are useful. To do this, Google receives your IP address and details of the page you are on, and may set cookies in your browser. Google handles that information under its own privacy policy. We see totals only, and do not use this to identify you.</p>""" if GOOGLE_TAG_ID else ""
+    cookies = ("This site sets no cookies of its own and runs no analytics. The one tracking tool it uses is the Google advertising tag described below."
                if GOOGLE_TAG_ID else "This site sets no cookies of its own and runs no analytics or advertising trackers.")
+    ads_company = ("""
+          <li><strong>Google Ads</strong> measures the results of our advertising, as described under "Advertising measurement" below.</li>"""
+                   if GOOGLE_TAG_ID else "")
     body = f"""    <article class="post">
       <header class="post-header">
         <div class="wrap post-wrap">
@@ -757,7 +770,7 @@ def privacy_page():
           <li><strong>Google</strong> provides our email, and a backup copy of each contact form message is kept in Google Forms.</li>
           <li><strong>Calendly</strong> handles call bookings.</li>
           <li><strong>GitHub</strong> hosts this website. Like any web host, it receives your IP address and basic browser details when you load a page.</li>
-          <li><strong>Google Fonts</strong> supplies the typefaces, so your browser requests them from Google when a page loads.</li>
+          <li><strong>Google Fonts</strong> supplies the typefaces, so your browser requests them from Google when a page loads.</li>{ads_company}
         </ul>
         <p>Some of these companies store or process information outside Canada, including in the United States.</p>
 

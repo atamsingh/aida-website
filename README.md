@@ -53,11 +53,12 @@ button reads "Book a 30-minute call"; the contact form stays as the alternative.
 
 ## Google Ads tracking
 
-Set `GOOGLE_TAG_ID` (the `AW-...` id, not the account number) and the two conversion
-labels at the top of `build.py`, then rebuild. The tag then loads on every page, a
-conversion fires when a contact form is confirmed sent and when a booking link is
-clicked, and the privacy page gains an "Advertising measurement" section. With
-`GOOGLE_TAG_ID` empty, no tracking code is loaded.
+`GOOGLE_TAG_ID` at the top of `build.py` holds the Google tag id supplied by Google Ads
+(currently a Tag Manager container, `GTM-...`). The tag loads on every page. The site
+sends it two events: `contact_form_submit` when an enquiry is confirmed sent, and
+`booking_link_click` when a booking button is clicked. Conversions are created in
+Google Ads from those events. Set `GOOGLE_TAG_ID` to an empty string to remove all
+tracking; the privacy page's "Advertising measurement" section follows that setting.
 
 ## Contact form
 
