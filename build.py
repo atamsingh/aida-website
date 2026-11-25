@@ -4,6 +4,7 @@
 Edit the content in this file, then run:  python3 build.py
 It rewrites index.html, the landing pages and sitemap.xml. No dependencies.
 """
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -19,6 +20,11 @@ TOPICS = ["AI strategy: where to start", "AI agents and assistants", "Data engin
 LINKEDIN = "https://www.linkedin.com/in/atamsingh"
 LOGO = (ROOT / "partials/logo-mark.svg").read_text().strip()
 PIPELINE = (ROOT / "partials/pipeline.svg").read_text().strip()
+
+
+def version(name):
+    """Short content hash, appended to asset URLs so browsers pick up changes."""
+    return hashlib.md5((ROOT / name).read_bytes()).hexdigest()[:8]
 
 # Sources for the market figures quoted on the pages.
 SRC_STATCAN = "https://www150.statcan.gc.ca/n1/daily-quotidien/260831/dq260831a-eng.htm"
@@ -43,6 +49,7 @@ ICONS = {
     "chat": '<path d="M8 10h32v22H22l-9 8v-8H8z"/><path d="M16 18h16M16 25h10"/>',
     "check": '<circle cx="24" cy="24" r="18"/><path d="M15 24l6 6 12-13"/>',
     "people": '<circle cx="17" cy="17" r="6"/><circle cx="34" cy="20" r="4.5"/><path d="M5 40c0-7 5-12 12-12s12 5 12 12M31 30c6 0 11 4 11 10"/>',
+    "db": '<ellipse cx="24" cy="12" rx="14" ry="5"/><path d="M10 12v24c0 2.8 6.3 5 14 5s14-2.2 14-5V12M10 24c0 2.8 6.3 5 14 5s14-2.2 14-5"/>',
     "cloud": '<path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 3 7.500 7.500 0 0 1-1 15z"/><path d="M24 23v9M20 28l4 4 4-4"/>',
 }
 
@@ -86,7 +93,7 @@ def layout(path, title, description, body, base):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{base}styles.css">
+  <link rel="stylesheet" href="{base}styles.css?v={version("styles.css")}">
 
   <script type="application/ld+json">
   {{
@@ -141,7 +148,7 @@ def layout(path, title, description, body, base):
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="{base}assets/contact.js" defer></script>
+  <script src="{base}assets/contact.js?v={version("assets/contact.js")}" defer></script>
 </body>
 </html>
 """
@@ -241,17 +248,27 @@ R = {
 
 # ---------------------------------------------------------------- home page
 
-HOME_START = [
-    ("ai-consulting/", "compass", "AI consulting", "Not sure where AI fits?",
-     "Find the use cases that will actually pay off, and get a plan your team can deliver."),
-    ("ai-agents/", "chat", "AI agents &amp; assistants", "Stuck at the demo stage?",
-     "Assistants, retrieval and agent workflows built and tested for real users."),
-    ("data-engineering/", "pipes", "Data engineering", "Pipelines slow or fragile?",
-     "Senior data engineering: pipelines, warehouse models, cloud cost and testing."),
-    ("ai-ready-data/", "check", "AI-ready data", "Data not ready for AI?",
-     "Pipelines, models and quality checks that make your data something AI can rely on."),
-    ("public-sector/", "shield", "Public sector", "Working in government?",
-     "Data quality, architecture and responsible AI, delivered with public-sector rigour."),
+EXPERIENCE = ["Stripe", "Shopify", "Fullscript", "IRCC", "EDC"]
+
+# The end-to-end path from raw data to AI in production, in two groups of three
+# steps: (icon, title, what it is, where we pitch in, badge or None).
+FLOW = [
+    ("Data foundations", "The part most AI projects skip.",
+     [("data-engineering/", "Data engineering"), ("ai-ready-data/", "AI-ready data")],
+     [("db", "Sources", "Apps, databases, documents and events, scattered across the business.",
+       "We audit what you have and what is actually usable.", "We start here"),
+      ("pipes", "Pipelines", "Data collected, cleaned and moved to where it is needed.",
+       "We build pipelines that run on time and recover when they fail.", None),
+      ("shield", "Trusted data", "Modelled, tested and monitored, with one answer per question.",
+       "We add the models, quality rules and ownership that make it dependable.", None)]),
+    ("AI in production", "The part everyone wants to get to.",
+     [("ai-agents/", "AI agents &amp; assistants")],
+     [("ai", "AI layer", "Retrieval, models and agents grounded in your own data.",
+       "We design and build the assistant or agent for your use case.", "Most projects start here"),
+      ("check", "Evaluation", "Proof that the answers are accurate, before real users see them.",
+       "We test with human reviewers and LLM judges, and add guardrails.", None),
+      ("screen", "In use", "Running in the business, monitored, and owned by your team.",
+       "We ship it, watch it in production and train your people to run it.", None)]),
 ]
 
 HOME_SERVICES = [
@@ -318,14 +335,70 @@ def card_link(link):
     return '\n            <a class="link-arrow card-link" href="%s">Learn more</a>' % link
 
 
-def home():
-    start = "\n".join(f"""          <a class="start-card" href="{href}">
-            {icon(ic)}
-            <span class="card-label">{label}</span>
-            <strong>{q}</strong>
-            <span>{text}</span>
-          </a>""" for href, ic, label, q, text in HOME_START)
+def experience():
+    names = "".join(f"<li>{n}</li>" for n in EXPERIENCE)
+    return f"""      <div class="wrap exp">
+        <p>Our principal’s experience</p>
+        <ul>{names}</ul>
+      </div>"""
 
+
+def avatar(base=""):
+    """Uses assets/atam.jpg as the headshot if that file exists, else initials."""
+    if (ROOT / "assets/atam.jpg").exists():
+        return f'<img class="avatar" src="{base}assets/atam.jpg" alt="Atam Singh" width="72" height="72">'
+    return '<div class="avatar" aria-hidden="true">AS</div>'
+
+
+def flow():
+    n = 0
+    groups = []
+    for title, sub_, links, steps_ in FLOW:
+        items = []
+        for ic, name, what, pitch, badge in steps_:
+            n += 1
+            badge_html = ""
+            if badge:
+                cls = "flow-badge" + (" flow-badge-us" if badge.startswith("We") else "")
+                badge_html = f'\n                <span class="{cls}">{badge}</span>'
+            items.append(f"""              <li class="flow-step">{badge_html}
+                <div class="flow-head"><span class="flow-num">{n}</span>{icon(ic)}</div>
+                <h4>{name}</h4>
+                <p>{what}</p>
+                <p class="pitch"><span>Where we pitch in</span>{pitch}</p>
+              </li>""")
+        link_html = " ".join(f'<a class="link-arrow" href="{h}">{l}</a>' for h, l in links)
+        groups.append(f"""          <div class="flow-group">
+            <div class="flow-group-head">
+              <div><h3>{title}</h3><p>{sub_}</p></div>
+              <div class="flow-links">{link_html}</div>
+            </div>
+            <ol class="flow-steps" start="{n - 2}">
+{chr(10).join(items)}
+            </ol>
+          </div>""")
+    return f"""    <section class="section" id="flow">
+      <div class="wrap">
+        <p class="eyebrow">The whole picture</p>
+        <h2>From raw data to AI in production, and where we pitch in.</h2>
+        <p class="section-intro">AI is the visible part. Most of the work, and most of the risk, sits in the steps before it. We cover the whole path, so nothing falls between two firms.</p>
+
+        <div class="flow">
+          <a class="flow-strategy" href="ai-consulting/">
+            <span class="card-label">Before you build anything</span>
+            <strong>Which AI use cases are actually worth it?</strong>
+            <span class="flow-strategy-link">We find and rank them with you: AI consulting</span>
+          </a>
+{chr(10).join(groups)}
+          <p class="flow-loop"><span aria-hidden="true">↺</span> What you learn in production feeds back into better data and better AI.</p>
+        </div>
+
+        <p class="flow-note"><strong>Why we start at step 1:</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner, 2025</a>. Working in government? See our <a href="public-sector/">public-sector work</a>.</p>
+      </div>
+    </section>"""
+
+
+def home():
     cards = "\n".join(f"""          <article class="card">
             <div class="card-head">{icon(ic)}<span class="card-label">{name}</span></div>
             <h3 class="pain">“{pain}”</h3>
@@ -359,13 +432,13 @@ def home():
           <p class="lede">Most AI projects stall because the data underneath them isn’t ready. We are AI consultants with a data engineering backbone: we help Canadian organizations find where AI will pay off, build it properly, and fix the data it depends on.</p>
           <div class="actions">
             <a class="btn" href="#contact">Tell us about your challenge</a>
-            <a class="link-arrow" href="#start">See how we can help</a>
+            <a class="link-arrow" href="#flow">See how we can help</a>
           </div>
-          <p class="trust">Led by a principal engineer with experience at <strong>Stripe</strong>, <strong>Shopify</strong> and <strong>Fullscript</strong>, and in the federal public sector at <strong>IRCC</strong> and <strong>EDC</strong>.</p>
         </div>
 
         {PIPELINE}
       </div>
+{experience()}
     </section>
 
     <section class="market" aria-label="The AI market in Canada">
@@ -388,15 +461,7 @@ def home():
       </div>
     </section>
 
-    <section class="section" id="start">
-      <div class="wrap">
-        <p class="eyebrow">Where to start</p>
-        <h2>Pick the conversation that sounds like yours.</h2>
-        <div class="start">
-{start}
-        </div>
-      </div>
-    </section>
+{flow()}
 
     <section class="section section-alt" id="services">
       <div class="wrap">
@@ -446,7 +511,7 @@ def home():
           <p class="section-intro">Fluent in the tools below, and comfortable picking up yours.</p>
         </div>
         <article class="person">
-          <div class="avatar" aria-hidden="true">AS</div>
+          {avatar()}
           <div>
             <h3>Atam Singh</h3>
             <p class="role">Principal Engineer and Founder</p>
@@ -527,6 +592,7 @@ def landing(p):
 {points}
         </ul>
       </div>
+{experience()}
     </section>
 
     <section class="section section-alt" id="problem">

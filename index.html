@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=d0f42d91">
 
   <script type="application/ld+json">
   {
@@ -76,9 +76,8 @@
           <p class="lede">Most AI projects stall because the data underneath them isn’t ready. We are AI consultants with a data engineering backbone: we help Canadian organizations find where AI will pay off, build it properly, and fix the data it depends on.</p>
           <div class="actions">
             <a class="btn" href="#contact">Tell us about your challenge</a>
-            <a class="link-arrow" href="#start">See how we can help</a>
+            <a class="link-arrow" href="#flow">See how we can help</a>
           </div>
-          <p class="trust">Led by a principal engineer with experience at <strong>Stripe</strong>, <strong>Shopify</strong> and <strong>Fullscript</strong>, and in the federal public sector at <strong>IRCC</strong> and <strong>EDC</strong>.</p>
         </div>
 
         <figure class="pipeline" aria-label="Diagram: raw sources flow through engineering and science into a data product">
@@ -123,6 +122,10 @@
           </svg>
         </figure>
       </div>
+      <div class="wrap exp">
+        <p>Our principal’s experience</p>
+        <ul><li>Stripe</li><li>Shopify</li><li>Fullscript</li><li>IRCC</li><li>EDC</li></ul>
+      </div>
     </section>
 
     <section class="market" aria-label="The AI market in Canada">
@@ -145,42 +148,76 @@
       </div>
     </section>
 
-    <section class="section" id="start">
+    <section class="section" id="flow">
       <div class="wrap">
-        <p class="eyebrow">Where to start</p>
-        <h2>Pick the conversation that sounds like yours.</h2>
-        <div class="start">
-          <a class="start-card" href="ai-consulting/">
-            <svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M31 17l-4 10-10 4 4-10z"/></svg>
-            <span class="card-label">AI consulting</span>
-            <strong>Not sure where AI fits?</strong>
-            <span>Find the use cases that will actually pay off, and get a plan your team can deliver.</span>
+        <p class="eyebrow">The whole picture</p>
+        <h2>From raw data to AI in production, and where we pitch in.</h2>
+        <p class="section-intro">AI is the visible part. Most of the work, and most of the risk, sits in the steps before it. We cover the whole path, so nothing falls between two firms.</p>
+
+        <div class="flow">
+          <a class="flow-strategy" href="ai-consulting/">
+            <span class="card-label">Before you build anything</span>
+            <strong>Which AI use cases are actually worth it?</strong>
+            <span class="flow-strategy-link">We find and rank them with you: AI consulting</span>
           </a>
-          <a class="start-card" href="ai-agents/">
-            <svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h32v22H22l-9 8v-8H8z"/><path d="M16 18h16M16 25h10"/></svg>
-            <span class="card-label">AI agents &amp; assistants</span>
-            <strong>Stuck at the demo stage?</strong>
-            <span>Assistants, retrieval and agent workflows built and tested for real users.</span>
-          </a>
-          <a class="start-card" href="data-engineering/">
-            <svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14h14v8H6zM28 26h14v8H28zM6 30h8M20 18h6a4 4 0 0 1 4 4v4M14 30h14"/></svg>
-            <span class="card-label">Data engineering</span>
-            <strong>Pipelines slow or fragile?</strong>
-            <span>Senior data engineering: pipelines, warehouse models, cloud cost and testing.</span>
-          </a>
-          <a class="start-card" href="ai-ready-data/">
-            <svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M15 24l6 6 12-13"/></svg>
-            <span class="card-label">AI-ready data</span>
-            <strong>Data not ready for AI?</strong>
-            <span>Pipelines, models and quality checks that make your data something AI can rely on.</span>
-          </a>
-          <a class="start-card" href="public-sector/">
-            <svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5l15 6v11c0 10-6.5 17-15 21C15.5 39 9 32 9 22V11z"/><path d="M17 24l5 5 9-11"/></svg>
-            <span class="card-label">Public sector</span>
-            <strong>Working in government?</strong>
-            <span>Data quality, architecture and responsible AI, delivered with public-sector rigour.</span>
-          </a>
+          <div class="flow-group">
+            <div class="flow-group-head">
+              <div><h3>Data foundations</h3><p>The part most AI projects skip.</p></div>
+              <div class="flow-links"><a class="link-arrow" href="data-engineering/">Data engineering</a> <a class="link-arrow" href="ai-ready-data/">AI-ready data</a></div>
+            </div>
+            <ol class="flow-steps" start="1">
+              <li class="flow-step">
+                <span class="flow-badge flow-badge-us">We start here</span>
+                <div class="flow-head"><span class="flow-num">1</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="12" rx="14" ry="5"/><path d="M10 12v24c0 2.8 6.3 5 14 5s14-2.2 14-5V12M10 24c0 2.8 6.3 5 14 5s14-2.2 14-5"/></svg></div>
+                <h4>Sources</h4>
+                <p>Apps, databases, documents and events, scattered across the business.</p>
+                <p class="pitch"><span>Where we pitch in</span>We audit what you have and what is actually usable.</p>
+              </li>
+              <li class="flow-step">
+                <div class="flow-head"><span class="flow-num">2</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14h14v8H6zM28 26h14v8H28zM6 30h8M20 18h6a4 4 0 0 1 4 4v4M14 30h14"/></svg></div>
+                <h4>Pipelines</h4>
+                <p>Data collected, cleaned and moved to where it is needed.</p>
+                <p class="pitch"><span>Where we pitch in</span>We build pipelines that run on time and recover when they fail.</p>
+              </li>
+              <li class="flow-step">
+                <div class="flow-head"><span class="flow-num">3</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5l15 6v11c0 10-6.5 17-15 21C15.5 39 9 32 9 22V11z"/><path d="M17 24l5 5 9-11"/></svg></div>
+                <h4>Trusted data</h4>
+                <p>Modelled, tested and monitored, with one answer per question.</p>
+                <p class="pitch"><span>Where we pitch in</span>We add the models, quality rules and ownership that make it dependable.</p>
+              </li>
+            </ol>
+          </div>
+          <div class="flow-group">
+            <div class="flow-group-head">
+              <div><h3>AI in production</h3><p>The part everyone wants to get to.</p></div>
+              <div class="flow-links"><a class="link-arrow" href="ai-agents/">AI agents &amp; assistants</a></div>
+            </div>
+            <ol class="flow-steps" start="4">
+              <li class="flow-step">
+                <span class="flow-badge">Most projects start here</span>
+                <div class="flow-head"><span class="flow-num">4</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="5"/><circle cx="9" cy="11" r="3"/><circle cx="39" cy="11" r="3"/><circle cx="9" cy="37" r="3"/><circle cx="39" cy="37" r="3"/><path d="M11.5 13l8.5 7.5M36.5 13 28 20.5M11.5 35l8.5-7.5M36.5 35 28 27.5"/></svg></div>
+                <h4>AI layer</h4>
+                <p>Retrieval, models and agents grounded in your own data.</p>
+                <p class="pitch"><span>Where we pitch in</span>We design and build the assistant or agent for your use case.</p>
+              </li>
+              <li class="flow-step">
+                <div class="flow-head"><span class="flow-num">5</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M15 24l6 6 12-13"/></svg></div>
+                <h4>Evaluation</h4>
+                <p>Proof that the answers are accurate, before real users see them.</p>
+                <p class="pitch"><span>Where we pitch in</span>We test with human reviewers and LLM judges, and add guardrails.</p>
+              </li>
+              <li class="flow-step">
+                <div class="flow-head"><span class="flow-num">6</span><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="36" height="28" rx="4"/><path d="M18 42h12M14 28v-6M22 28V16M30 28v-9M36 28v-4"/></svg></div>
+                <h4>In use</h4>
+                <p>Running in the business, monitored, and owned by your team.</p>
+                <p class="pitch"><span>Where we pitch in</span>We ship it, watch it in production and train your people to run it.</p>
+              </li>
+            </ol>
+          </div>
+          <p class="flow-loop"><span aria-hidden="true">↺</span> What you learn in production feeds back into better data and better AI.</p>
         </div>
+
+        <p class="flow-note"><strong>Why we start at step 1:</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. <a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk" target="_blank" rel="noopener">Gartner, 2025</a>. Working in government? See our <a href="public-sector/">public-sector work</a>.</p>
       </div>
     </section>
 
@@ -461,6 +498,6 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="assets/contact.js" defer></script>
+  <script src="assets/contact.js?v=bf958f73" defer></script>
 </body>
 </html>
