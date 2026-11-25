@@ -11,7 +11,7 @@ Static site for https://www.aidaconsulting.ca/ — plain HTML and CSS, generated
 | `/ai-agents/` | Landing page for AI agents, assistants and RAG |
 | `/data-engineering/` | Landing page for technical buyers: pipelines, warehouse, cloud cost |
 | `/ai-ready-data/` | Landing page for getting data ready for AI |
-| `/public-sector/` | Landing page for government teams |
+| `/public-sector/` | Landing page for government teams (not in the menu; reach it by URL or ads) |
 
 ## Editing
 
@@ -26,6 +26,11 @@ All page content lives in `build.py`. Edit it, then regenerate the HTML:
 - `CNAME` — custom domain for GitHub Pages
 
 Do not edit the generated `index.html` files by hand; they are overwritten by `build.py`.
+
+## Booking link
+
+Set `BOOKING_URL` at the top of `build.py` to a Calendly or Google Calendar booking
+link and every main button becomes "Book a 30-minute call".
 
 ## Contact form
 

@@ -18,6 +18,10 @@ FIELD = {"name": "entry.2005620554", "email": "entry.1045781291", "phone": "entr
 TOPICS = ["AI strategy: where to start", "AI agents and assistants", "Data engineering and pipelines",
           "Data quality and governance", "Public-sector project", "Something else"]
 LINKEDIN = "https://www.linkedin.com/in/atamsingh"
+# Paste a Calendly or Google Calendar booking link here and every main button
+# becomes "Book a 30-minute call". Leave empty to send people to the contact form.
+BOOKING_URL = ""
+BOOKING_LABEL = "Book a 30-minute call"
 LOGO = (ROOT / "partials/logo-mark.svg").read_text().strip()
 PIPELINE = (ROOT / "partials/pipeline.svg").read_text().strip()
 
@@ -36,7 +40,6 @@ NAV = [
     ("ai-agents/", "AI agents"),
     ("data-engineering/", "Data engineering"),
     ("ai-ready-data/", "AI-ready data"),
-    ("public-sector/", "Public sector"),
 ]
 
 ICONS = {
@@ -154,6 +157,20 @@ def layout(path, title, description, body, base):
 """
 
 
+def booking_block():
+    if not BOOKING_URL:
+        return ""
+    return f'''          <p class="contact-book"><a class="btn btn-accent" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a><span>or send a message with the form</span></p>
+'''
+
+
+def primary_cta(label):
+    """Main call-to-action button: the booking link if set, else the contact form."""
+    if BOOKING_URL:
+        return f'<a class="btn" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a>'
+    return f'<a class="btn" href="#contact">{label}</a>'
+
+
 def contact(heading="Have an AI or data challenge? Let’s talk it through.",
             text="No pitch deck. Tell us what you are dealing with and we will tell you honestly whether we can help.",
             topic=None, page="Home"):
@@ -171,7 +188,7 @@ def contact(heading="Have an AI or data challenge? Let’s talk it through.",
             <li><span>2</span>We talk it through together</li>
             <li><span>3</span>You get a proposed plan and scope</li>
           </ol>
-          <p class="contact-alt">Prefer LinkedIn? <a href="{LINKEDIN}" target="_blank" rel="noopener">Message Atam directly</a>.</p>
+{booking_block()}          <p class="contact-alt">Prefer LinkedIn? <a href="{LINKEDIN}" target="_blank" rel="noopener">Message Atam directly</a>.</p>
         </div>
 
         <div class="form-card">
@@ -278,27 +295,6 @@ FLOW = [
        "We ship it, watch it in production and train your people to run it.", None)]),
 ]
 
-HOME_SERVICES = [
-    ("AI Strategy &amp; Opportunity", "compass", "Leadership wants an AI plan, and nobody knows where to start.",
-     "We look at how your organization actually works and find where AI will save time or make money, and where it won’t.",
-     ["A ranked shortlist of AI use cases", "A data-readiness check for each one", "A phased roadmap and budget range", "Clear briefings for senior leadership"], "ai-consulting/"),
-    ("AI Agents &amp; Assistants", "ai", "We have an AI demo. We need something we can put in front of customers.",
-     "We take AI from prototype to production, with the evaluation and guardrails you need before you can trust what it says.",
-     ["Retrieval (RAG) and agent workflows grounded in your data", "Quality measured by human review and LLM judges", "Internal assistants and chatbots", "Monitoring once it is live"], "ai-agents/"),
-    ("Data Engineering", "pipes", "Our pipelines are slow, fragile, or cost too much.",
-     "We rebuild the foundations: pipelines that finish on time, data models people can reason about, and a cloud bill that matches the value you get.",
-     ["Reliable batch and real-time pipelines", "A clean, documented warehouse model", "Automated testing and deployment", "Cloud migration and cost reduction"], "data-engineering/"),
-    ("Data Quality &amp; Governance", "shield", "Two dashboards, two different answers. Nobody trusts the numbers.",
-     "We find where quality breaks down and put automated checks in place, so problems are caught before your users or your auditors find them.",
-     ["Automated quality rules and monitoring", "A testing framework for your pipelines", "Privacy, financial-reporting and data-residency compliance", "Lineage, discovery and master data"], "ai-ready-data/"),
-    ("Analytics &amp; Data Science", "chart", "We have plenty of data, but we still can’t see how the business is doing.",
-     "We agree on the handful of metrics that matter, then make them visible and monitored, so changes are noticed early and decisions get made.",
-     ["Agreed definitions for metrics and KPIs", "Dashboards leaders actually open", "Monitoring of your business’s vital signs", "Customer journey and usage analysis"], None),
-    ("Data Products &amp; Platforms", "screen", "Every question sits in the data team’s queue.",
-     "We build tools that let people serve themselves, technical or not, so your data team spends its time on the hard problems.",
-     ["Self-serve exploration and BI at scale", "Pipeline platforms with GUI, API and CLI", "No-code builders for non-technical users", "Open-source tools adopted securely"], None),
-]
-
 ENGAGE = [
     ("Assess", "AI &amp; data assessment", "You want to use AI, but aren’t sure where or whether your data is ready.",
      "We review your processes, data and tools, then tell you plainly where AI will pay off and what has to be fixed first.",
@@ -313,26 +309,13 @@ ENGAGE = [
 
 WHY = [
     ("AI with a data backbone", "Most AI consultants start at the model. We start at the data it depends on, because that is where AI projects usually fail."),
-    ("Senior and hands-on", "You work directly with the principal engineer who does the work. No hand-off to a junior team once the contract is signed."),
-    ("Understanding comes first", "We explain what is going on in plain language, so you can make decisions about your own data and AI with confidence."),
+    ("No junior hand-off", "You work directly with Atam, who does the work himself, from the first call to the final hand-over."),
     ("Built to hand over", "Everything is documented, tested and taught. The goal is a team that owns the result, not one that depends on us."),
-]
-
-STEPS_HOME = [
-    ("Understand", "We start with your business and the questions you need answered, and map the data and AI challenges standing in the way."),
-    ("Build", "We deliver in small, working increments, so you see value early and can steer as priorities change."),
-    ("Hand over", "We document, explain and train as we go, so your team can run and extend what we leave behind."),
 ]
 
 
 def steps(items):
     return "\n".join(f"          <li>\n            <h3>{t}</h3>\n            <p>{p}</p>\n          </li>" for t, p in items)
-
-
-def card_link(link):
-    if not link:
-        return ""
-    return '\n            <a class="link-arrow card-link" href="%s">Learn more</a>' % link
 
 
 def experience(base=""):
@@ -344,7 +327,7 @@ def experience(base=""):
         else:
             items.append(f'<li class="exp-text" title="{title}">{name}</li>')
     return f"""      <div class="wrap exp">
-        <p>Where our principal has worked</p>
+        <p>Where our founder, Atam, has worked</p>
         <ul>
           {(chr(10) + "          ").join(items)}
         </ul>
@@ -401,22 +384,12 @@ def flow():
           <p class="flow-loop"><span aria-hidden="true">↺</span> What you learn in production feeds back into better data and better AI.</p>
         </div>
 
-        <p class="flow-note"><strong>Why we start at step 1:</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner, 2025</a>. Working in government? See our <a href="public-sector/">public-sector work</a>.</p>
+        <p class="flow-note"><strong>Why we start at step 1:</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner, 2025</a>.</p>
       </div>
     </section>"""
 
 
 def home():
-    cards = "\n".join(f"""          <article class="card">
-            <div class="card-head">{icon(ic)}<span class="card-label">{name}</span></div>
-            <h3 class="pain">“{pain}”</h3>
-            <p>{help_}</p>
-            <p class="gets-label">What you get</p>
-            <ul>
-{ul(gets)}
-            </ul>{card_link(link)}
-          </article>""" for name, ic, pain, help_, gets, link in HOME_SERVICES)
-
     engage = "\n".join(f"""          <article class="engage-card">
             <p class="engage-kicker">{k}</p>
             <h3>{t}</h3>
@@ -435,7 +408,7 @@ def home():
           <h1>AI that works in production, built on <em>data you can trust.</em></h1>
           <p class="lede">Most AI projects stall because the data underneath them isn’t ready. We are AI consultants with a data engineering backbone: we help Canadian organizations find where AI will pay off, build it properly, and fix the data it depends on.</p>
           <div class="actions">
-            <a class="btn" href="#contact">Tell us about your challenge</a>
+            {primary_cta("Tell us about your challenge")}
             <a class="link-arrow" href="#flow">See how we can help</a>
           </div>
         </div>
@@ -445,41 +418,9 @@ def home():
 {experience()}
     </section>
 
-    <section class="market" aria-label="The AI market in Canada">
-      <div class="wrap market-grid">
-        <div>
-          <p class="market-num">1 in 4</p>
-          <p>Canadian businesses plan to use AI in the next 12 months, up from 1 in 7 a year ago.</p>
-          <a href="{SRC_STATCAN}" target="_blank" rel="noopener">Statistics Canada, Q3 2026</a>
-        </div>
-        <div>
-          <p class="market-num">60%</p>
-          <p>of AI projects not supported by AI-ready data are predicted to be abandoned through 2026.</p>
-          <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner, 2025</a>
-        </div>
-        <div>
-          <p class="market-num">63%</p>
-          <p>of organizations don’t have, or aren’t sure they have, the right data practices for AI.</p>
-          <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner survey, 2024</a>
-        </div>
-      </div>
-    </section>
-
 {flow()}
 
-    <section class="section section-alt" id="services">
-      <div class="wrap">
-        <p class="eyebrow">How we can help</p>
-        <h2>Sound familiar? These are the problems we solve.</h2>
-        <p class="section-intro">AI first, and the data work that makes AI succeed.</p>
-
-        <div class="cards">
-{cards}
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="engage">
+    <section class="section section-alt" id="engage">
       <div class="wrap">
         <p class="eyebrow">How we work</p>
         <h2>Three ways to work with us.</h2>
@@ -487,42 +428,32 @@ def home():
         <div class="engage">
 {engage}
         </div>
-        <ol class="steps">
-{steps(STEPS_HOME)}
-        </ol>
       </div>
     </section>
 
-{results([R["ai"], R["fast"], R["saved"], R["pb"], R["rules"], R["users"]],
+{results([R["ai"], R["fast"], R["saved"]],
          "The kind of outcomes you can expect.",
-         "Drawn from work our principal has led or delivered over the past decade.")}
+         "Results Atam has led or delivered over the past decade.")}
 
-    <section class="section" id="why">
-      <div class="wrap">
-        <p class="eyebrow">Why AIDA</p>
-        <h2>A senior practitioner, not a slide deck.</h2>
-        <ul class="why">
-{why}
-        </ul>
-      </div>
-    </section>
-
-    <section class="section section-alt" id="about">
+    <section class="section" id="about">
       <div class="wrap about">
         <div>
           <p class="eyebrow">Who you’ll work with</p>
-          <h2>Led by a practitioner.</h2>
-          <p class="section-intro">We work in the stack you already have, and recommend changing it only when there is a clear reason to.</p>
+          <h2>I’m Atam. When you hire AIDA, you work with me.</h2>
         </div>
         <article class="person">
           {avatar()}
           <div>
             <h3>Atam Singh</h3>
             <p class="role">Principal Engineer and Founder</p>
-            <p>Atam has spent more than 10 years building data and AI systems. His experience spans Stripe, nearly six years at Shopify, where he went from data engineer to staff data scientist and staff data developer, and production AI work at Fullscript. In the federal public sector he has led data quality and architecture work at Immigration, Refugees and Citizenship Canada (IRCC) and built master data pipelines at Export Development Canada (EDC).</p>
+            <p>I have spent more than 10 years building data and AI systems: at Stripe, for nearly six years at Shopify, where I went from data engineer to staff data scientist and staff data developer, and on production AI at Fullscript. In the federal public sector I have led data quality and architecture work at IRCC and built master data pipelines at EDC.</p>
+            <p>I do the work myself, explain it in plain language, and leave your team able to run it.</p>
             <a class="link-arrow" href="{LINKEDIN}" target="_blank" rel="noopener">Connect on LinkedIn</a>
           </div>
         </article>
+        <ul class="why">
+{why}
+        </ul>
       </div>
     </section>
 
@@ -585,7 +516,7 @@ def landing(p):
           <h1>{p["h1"]}</h1>
           <p class="lede">{p["lede"]}</p>
           <div class="actions">
-            <a class="btn" href="#contact">{p.get("cta", "Tell us about your challenge")}</a>
+            {primary_cta(p.get("cta", "Tell us about your challenge"))}
             <a class="link-arrow" href="#offer">See what you get</a>
           </div>
         </div>
@@ -630,7 +561,7 @@ def landing(p):
 
 {bridge(p.get("bridge"))}
 {results([R[k] for k in p["results"]], p["results_heading"],
-         "Drawn from work our principal has led or delivered.")}
+         "Results our founder, Atam Singh, has led or delivered.")}
 
     <section class="section" id="faq">
       <div class="wrap split">
@@ -696,7 +627,7 @@ PAGES = [
             ("We’re a small team. Is AI consulting worth it for us?", "Often the best first project is a small one: a single repetitive process that eats hours every week. The assessment tells you whether there is a real return. If the honest answer is “not yet”, we will say so."),
             ("Does our data need to be in good shape first?", "No. Finding out what state your data is in is part of the assessment. If it needs work before AI will succeed, we will tell you exactly what, and we can do that work too."),
             ("Which AI tools and models do you use?", "We are vendor-neutral. We have built with OpenAI models, open-source models from Hugging Face, and frameworks such as LangGraph, LangChain and Pydantic AI, and we recommend what fits your needs and budget."),
-            ("How do you handle privacy and sensitive data?", "Privacy and data-residency requirements are designed in from the start. Our principal has delivered data systems under Canada–US data residency restrictions and large-scale privacy compliance programmes."),
+            ("How do you handle privacy and sensitive data?", "Privacy and data-residency requirements are designed in from the start. Atam has delivered data systems under Canada–US data residency restrictions and large-scale privacy compliance programmes."),
         ],
         "contact_heading": "Wondering where AI fits in your organization?",
         "contact_text": "Tell us what you do and where the time goes. We will tell you honestly whether AI can help.",
@@ -757,7 +688,7 @@ PAGES = [
         "cta": "Talk to a data engineer",
         "points": ["dbt, Airflow, PySpark, Trino", "BigQuery, PostgreSQL, GCP, AWS", "Or the stack you already run", "Testing, CI/CD and observability"],
         "pain_heading": "The boring work is where the value is.",
-        "fact": ("3× faster", "A business-critical pipeline processing 80 million rows an hour, re-engineered by our principal to run in a third of the time.", "More results below", "#results"),
+        "fact": ("3× faster", "A business-critical pipeline processing 80 million rows an hour, re-engineered by Atam, our founder, to run in a third of the time.", "More results below", "#results"),
         "pains": [
             "The nightly job takes six hours and fails twice a week.",
             "Nobody dares touch the pipeline the last person built.",
@@ -851,7 +782,7 @@ PAGES = [
         "description": "Ottawa-based data and AI consulting for the public sector, with experience at IRCC and EDC: data quality assessment, information architecture, responsible AI pilots and knowledge transfer.",
         "eyebrow": "Public sector · Ottawa",
         "h1": "Data and AI for government, <em>done with rigour.</em>",
-        "lede": "Our principal has designed data quality programmes, enterprise data models and AI tools at Immigration, Refugees and Citizenship Canada (IRCC), and built master data pipelines at Export Development Canada (EDC). We understand the governance, privacy and documentation standards that public-sector work demands.",
+        "lede": "Our founder, Atam Singh, has designed data quality programmes, enterprise data models and AI tools at Immigration, Refugees and Citizenship Canada (IRCC), and built master data pipelines at Export Development Canada (EDC). We understand the governance, privacy and documentation standards that public-sector work demands.",
         "cta": "Start a conversation",
         "points": ["Hands-on experience at IRCC and EDC", "Data quality, architecture and AI", "Documentation and knowledge transfer built in", "Based in Ottawa"],
         "pain_heading": "Responsible AI starts with data you can stand behind.",
@@ -882,7 +813,7 @@ PAGES = [
         "results": ["rules", "models", "trained"],
         "results_heading": "Delivered in the federal public sector.",
         "faq": [
-            ("Can you work within our existing tools and standards?", "Yes. Our principal has delivered public-sector work using departmental platforms including SAS Viya, as well as dbt and PostgreSQL, and has advised senior leadership on technology selection."),
+            ("Can you work within our existing tools and standards?", "Yes. Atam has delivered public-sector work using departmental platforms including SAS Viya, as well as dbt and PostgreSQL, and has advised senior leadership on technology selection."),
             ("Will our team be able to maintain what you build?", "That is the aim of every engagement. We document the architecture, run demos, and train your developers to maintain, test and extend the work."),
             ("Do you only work with the federal government?", "No. We also work with private-sector organizations, and bring experience from large-scale e-commerce and health technology to public-sector problems."),
         ],

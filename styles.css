@@ -190,12 +190,8 @@ p { margin: 0; }
 .section-intro { color: var(--muted); max-width: 60ch; margin-top: 16px; }
 
 /* About + stack */
-.about { grid-template-areas: "intro person"; }
-.about > div:first-child { grid-area: intro; }
-.person { grid-area: person; }
 .person p + p { margin-top: 12px; }
 @media (max-width: 880px) {
-  .about { grid-template-areas: "intro" "person"; }
 }
 
 /* Hero trust line */
@@ -392,3 +388,10 @@ img.avatar { object-fit: cover; padding: 0; }
 .p-stage-glyph { stroke: var(--ink); }
 .p-loop { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 5; opacity: .7; }
 .p-loop-head { fill: var(--muted); opacity: .7; }
+
+/* About: merged with the reasons to choose us */
+.about .why { grid-column: 1 / -1; grid-template-columns: repeat(3, 1fr); gap: 28px 40px; margin-top: 24px; }
+.about h2 { max-width: 16ch; }
+@media (max-width: 880px) { .about .why { grid-template-columns: 1fr; } }
+.contact-book { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 28px; }
+.contact-book span { font-size: 14px; color: var(--deep-muted); }
