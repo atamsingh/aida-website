@@ -361,7 +361,7 @@ def home():
             <a class="btn" href="#contact">Tell us about your challenge</a>
             <a class="link-arrow" href="#start">See how we can help</a>
           </div>
-          <p class="trust">Experience across e-commerce, health technology and the federal public sector.</p>
+          <p class="trust">Led by a principal engineer who built data and AI systems at <strong>Shopify</strong> and <strong>Fullscript</strong>, and inside federal departments.</p>
         </div>
 
         {PIPELINE}
@@ -450,7 +450,7 @@ def home():
           <div>
             <h3>Atam Singh</h3>
             <p class="role">Principal Engineer and Founder</p>
-            <p>Atam has spent more than 10 years building data and AI systems, from a department’s first dashboard to petabyte-scale platforms and AI running in production, and has led multidisciplinary teams of up to ten.</p>
+            <p>Atam has spent more than 10 years building data and AI systems. That includes nearly six years at Shopify, where he went from data engineer to staff data scientist and staff data developer, production AI work at Fullscript, and data quality and architecture roles inside federal departments. He has led multidisciplinary teams of up to ten.</p>
             <a class="link-arrow" href="{LINKEDIN}" target="_blank" rel="noopener">Connect on LinkedIn</a>
           </div>
         </article>
@@ -570,7 +570,7 @@ def landing(p):
         <div>
           <p class="eyebrow">Questions</p>
           <h2>What people ask us first.</h2>
-          <p class="section-intro">Led by <a href="../#about">Atam Singh</a>, a principal engineer with 10+ years in data and AI. You work with him directly.</p>
+          <p class="section-intro">Led by <a href="../#about">Atam Singh</a>, a principal engineer with 10+ years in data and AI, previously at Shopify and Fullscript. You work with him directly.</p>
         </div>
         <div class="faq">
 {faq}
