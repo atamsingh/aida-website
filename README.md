@@ -33,8 +33,9 @@ Do not edit the generated `index.html` files by hand; they are overwritten by `b
 
 Each post is an HTML fragment in `posts/<slug>.html`, listed in `POSTS` in `build.py`
 (title, summary, date, and `featured` for the four shown on the home page).
-`posts/_BRIEF.md` is the writing brief: voice, allowed facts and format. The build prints
-a note for any post that still contains a yellow `[ATAM: …]` marker.
+`posts/_BRIEF.md` is the writing brief: voice, allowed facts and format. Passages wrapped in
+`<mark class="todo">` show highlighted in yellow: they are drafted for Atam to vet.
+Remove the `<mark>` tags once checked; the build lists posts that still have them.
 
 ## Booking link
 

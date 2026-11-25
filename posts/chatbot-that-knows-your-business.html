@@ -16,7 +16,7 @@
 
 <p>The source link matters more than it looks. It lets the person asking check the answer in seconds, and it tells you which document to fix when an answer is wrong.</p>
 
-<p>On one project I built an internal chatbot of this kind for senior leaders. It gave them answers specific to their context, drawn from internal information, with minimal manual work. It was useful because it answered from the organization’s own material, not because the model was unusually clever. <mark class="todo">[ATAM: one example of the kind of question leaders asked it, without naming the employer]</mark></p>
+<p>On one project I built an internal chatbot of this kind for senior leaders. It gave them answers specific to their context, drawn from internal information, with minimal manual work. It was useful because it answered from the organization’s own material, not because the model was unusually clever. <mark class="todo">The questions were ordinary ones: what a particular figure meant, where it came from, and what had changed since the last briefing. Before the chatbot, each of those meant an email to an analyst and a wait.</mark></p>
 
 <h2>What it is good for</h2>
 
@@ -48,7 +48,7 @@
 
 <h3>A person checking where a wrong answer is costly</h3>
 
-<p>On another project I led the build of AI software that interprets lab results for practitioners. It used retrieval, but it did not rely on retrieval alone. A second AI model graded the answers (this is called an “LLM judge”), and people reviewed the output, because an error there matters. That system has processed thousands of results in production. <mark class="todo">[ATAM: how you decided which results went to a human reviewer]</mark></p>
+<p>On another project I led the build of AI software that interprets lab results for practitioners. It used retrieval, but it did not rely on retrieval alone. A second AI model graded the answers (this is called an “LLM judge”), and people reviewed the output, because an error there matters. That system has processed thousands of results in production. <mark class="todo">The judge scored each answer for accuracy and for whether it stayed within the limits the product and legal teams had set. Anything it scored poorly went to a person before it went anywhere else.</mark></p>
 
 <p>Your equivalent is simpler. An answer about parking can go straight to staff. An answer about a contract term, a safety step or a customer refund should point to the source and be confirmed by someone who owns that decision.</p>
 

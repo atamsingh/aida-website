@@ -96,10 +96,13 @@ def layout(path, title, description, body, base, extra_head=""):
   <meta property="og:url" content="{SITE}/{path}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:image" content="{SITE}/assets/og.svg">
+  <meta property="og:image" content="{SITE}/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{base}assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -275,27 +278,27 @@ R = {
 # "featured" posts are the ones shown on the home page.
 AUTHOR = "Atam Singh"
 POSTS = [
-    {"slug": "chatbot-that-knows-your-business", "featured": True, "date": "2026-11-25",
+    {"slug": "chatbot-that-knows-your-business", "tag": "AI assistants", "featured": True, "date": "2026-11-25",
      "title": "A chatbot that actually knows your business",
      "summary": "How an AI assistant can answer from your own documents and show its sources, and what has to be true for it to work.",
      "description": "Generic chatbots know the internet, not your business. How an assistant can answer from your own documents, what makes it work, and when to skip it."},
-    {"slug": "weekly-report-that-builds-itself", "featured": True, "date": "2026-11-25",
+    {"slug": "weekly-report-that-builds-itself", "tag": "Reporting", "featured": True, "date": "2026-11-25",
      "title": "The weekly report that builds itself",
      "summary": "The hours spent copying numbers into a weekly report can be automated, and it is mostly plumbing, not AI.",
      "description": "How to automate the weekly report someone builds by hand: pull the numbers, agree the definitions, deliver on a schedule. No data team needed."},
-    {"slug": "why-ai-projects-fail", "featured": True, "date": "2026-11-25",
+    {"slug": "why-ai-projects-fail", "tag": "Getting AI right", "featured": True, "date": "2026-11-25",
      "title": "Why most AI projects fail, and the boring fix",
      "summary": "AI projects rarely fail because of the AI. They fail on scattered, untrusted information, and the fix is boring.",
      "description": "Most AI projects fail on the information underneath, not the AI. Here are the six steps, the boring fix, and how to tell where you are stuck."},
-    {"slug": "is-your-business-ready-for-ai", "featured": True, "date": "2026-11-25",
+    {"slug": "is-your-business-ready-for-ai", "tag": "Getting started", "featured": True, "date": "2026-11-25",
      "title": "Five signs your business is ready for AI, and three signs it isn’t",
      "summary": "Eight quick tests to tell whether a first AI project will pay off, or whether “not yet” is the smarter answer.",
      "description": "A practical self-check: five signs your business is ready for a first AI project, three signs it is not yet, and what to do about each."},
-    {"slug": "three-versions-of-every-customer", "featured": False, "date": "2026-11-25",
+    {"slug": "three-versions-of-every-customer", "tag": "Clean data", "featured": False, "date": "2026-11-25",
      "title": "Why you have three versions of every customer",
      "summary": "The same customer, spelled three ways in three systems: why it happens, what it costs, and the fix that comes before AI.",
      "description": "Why the same customer shows up three ways in your accounting system, CRM and spreadsheets, what it costs, and how to fix it before any AI project."},
-    {"slug": "is-your-data-safe-with-ai", "featured": False, "date": "2026-11-25",
+    {"slug": "is-your-data-safe-with-ai", "tag": "Privacy", "featured": False, "date": "2026-11-25",
      "title": "Is your data safe with AI? Questions every Canadian business should ask",
      "summary": "Seven plain questions to ask before business information goes into an AI tool, and three habits that lower risk.",
      "description": "Seven plain questions to ask any AI vendor before your business information goes in, plus three simple habits that lower the risk today."},
@@ -322,9 +325,8 @@ def post_meta(post):
 def post_cards(posts, base):
     cards = []
     for p in posts:
-        date, minutes = post_meta(p)
         cards.append(f"""          <a class="post-card" href="{base}blog/{p['slug']}/">
-            <span class="post-card-meta">{minutes} min read</span>
+            <span class="post-card-meta">{p['tag']}</span>
             <strong>{p['title']}</strong>
             <span class="post-card-summary">{p['summary']}</span>
             <span class="post-card-more">Read the post</span>
@@ -554,7 +556,10 @@ def flow():
           <p class="flow-loop"><span aria-hidden="true">↺</span> What you learn in production feeds back into better data and better AI.</p>
         </div>
 
-        <p class="flow-note"><strong>Why we start at step 1:</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned. <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Gartner, 2025</a>.</p>
+        <div class="flow-note">
+          <p><strong>Why we start at step 1.</strong> Gartner predicts that 60% of AI projects not supported by AI-ready data will be abandoned.</p>
+          <a href="{SRC_GARTNER}" target="_blank" rel="noopener">Source: Gartner, 2025</a>
+        </div>
       </div>
     </section>"""
 
@@ -1084,7 +1089,7 @@ def main():
             urls.append(f"{SITE}/blog/{post['slug']}/")
             todo = post_body(post).count('class="todo"')
             if todo:
-                print(f"  note: {post['slug']} has {todo} [ATAM] marker(s) to fill in")
+                print(f"  note: {post['slug']} has {todo} highlighted passage(s) for Atam to vet")
     for slug in missing:
         print(f"  note: posts/{slug}.html not found, post skipped")
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
