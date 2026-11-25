@@ -361,7 +361,7 @@ def home():
             <a class="btn" href="#contact">Tell us about your challenge</a>
             <a class="link-arrow" href="#start">See how we can help</a>
           </div>
-          <p class="trust">Led by a principal engineer who built data and AI systems at <strong>Shopify</strong> and <strong>Fullscript</strong>, and inside federal departments.</p>
+          <p class="trust">Led by a principal engineer with experience at <strong>Stripe</strong>, <strong>Shopify</strong> and <strong>Fullscript</strong>, and in the federal public sector at <strong>IRCC</strong> and <strong>EDC</strong>.</p>
         </div>
 
         {PIPELINE}
@@ -450,7 +450,7 @@ def home():
           <div>
             <h3>Atam Singh</h3>
             <p class="role">Principal Engineer and Founder</p>
-            <p>Atam has spent more than 10 years building data and AI systems. That includes nearly six years at Shopify, where he went from data engineer to staff data scientist and staff data developer, production AI work at Fullscript, and data quality and architecture roles inside federal departments. He has led multidisciplinary teams of up to ten.</p>
+            <p>Atam has spent more than 10 years building data and AI systems. His experience spans Stripe, nearly six years at Shopify, where he went from data engineer to staff data scientist and staff data developer, and production AI work at Fullscript. In the federal public sector he has led data quality and architecture work at Immigration, Refugees and Citizenship Canada (IRCC) and built master data pipelines at Export Development Canada (EDC). He has led multidisciplinary teams of up to ten.</p>
             <a class="link-arrow" href="{LINKEDIN}" target="_blank" rel="noopener">Connect on LinkedIn</a>
           </div>
         </article>
@@ -570,7 +570,7 @@ def landing(p):
         <div>
           <p class="eyebrow">Questions</p>
           <h2>What people ask us first.</h2>
-          <p class="section-intro">Led by <a href="../#about">Atam Singh</a>, a principal engineer with 10+ years in data and AI, previously at Shopify and Fullscript. You work with him directly.</p>
+          <p class="section-intro">Led by <a href="../#about">Atam Singh</a>, a principal engineer with 10+ years in data and AI and experience at Stripe, Shopify and Fullscript. You work with him directly.</p>
         </div>
         <div class="faq">
 {faq}
@@ -781,12 +781,12 @@ PAGES = [
         "path": "public-sector/",
         "topic": "Public-sector project",
         "title": "Data & AI Consulting for the Public Sector | AIDA Consulting, Ottawa",
-        "description": "Ottawa-based data and AI consulting for the public sector: data quality assessment, information architecture, responsible AI pilots and knowledge transfer.",
+        "description": "Ottawa-based data and AI consulting for the public sector, with experience at IRCC and EDC: data quality assessment, information architecture, responsible AI pilots and knowledge transfer.",
         "eyebrow": "Public sector · Ottawa",
         "h1": "Data and AI for government, <em>done with rigour.</em>",
-        "lede": "We have designed data quality programmes, enterprise data models and AI tools inside federal departments. We understand the governance, privacy and documentation standards that public-sector work demands.",
+        "lede": "Our principal has designed data quality programmes, enterprise data models and AI tools at Immigration, Refugees and Citizenship Canada (IRCC), and built master data pipelines at Export Development Canada (EDC). We understand the governance, privacy and documentation standards that public-sector work demands.",
         "cta": "Start a conversation",
-        "points": ["Hands-on federal department experience", "Data quality, architecture and AI", "Documentation and knowledge transfer built in", "Based in Ottawa"],
+        "points": ["Hands-on experience at IRCC and EDC", "Data quality, architecture and AI", "Documentation and knowledge transfer built in", "Based in Ottawa"],
         "pain_heading": "Responsible AI starts with data you can stand behind.",
         "fact": ("2025–2027", "The AI Strategy for the Federal Public Service sets out to accelerate responsible AI adoption across government. That depends on data that is governed, documented and trusted.", "Government of Canada", SRC_GC_AI),
         "pains": [
@@ -813,7 +813,7 @@ PAGES = [
             ("Transfer", "We train your team and leave complete documentation, so the work continues without us."),
         ],
         "results": ["rules", "models", "trained"],
-        "results_heading": "Delivered inside federal departments.",
+        "results_heading": "Delivered in the federal public sector.",
         "faq": [
             ("Can you work within our existing tools and standards?", "Yes. Our principal has delivered public-sector work using departmental platforms including SAS Viya, as well as dbt and PostgreSQL, and has advised senior leadership on technology selection."),
             ("Will our team be able to maintain what you build?", "That is the aim of every engagement. We document the architecture, run demos, and train your developers to maintain, test and extend the work."),
