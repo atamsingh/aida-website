@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom AI Agents, Assistants & RAG Development | AIDA Consulting</title>
+  <meta name="description" content="Custom AI agents, assistants and RAG systems grounded in your own data, built with the evaluation and guardrails needed for production. Based in Ottawa, serving Canada.">
+  <link rel="canonical" href="https://www.aidaconsulting.ca/ai-agents/">
+  <meta name="theme-color" content="#2a3060">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.aidaconsulting.ca/ai-agents/">
+  <meta property="og:title" content="Custom AI Agents, Assistants & RAG Development | AIDA Consulting">
+  <meta property="og:description" content="Custom AI agents, assistants and RAG systems grounded in your own data, built with the evaluation and guardrails needed for production. Based in Ottawa, serving Canada.">
+  <meta property="og:image" content="https://www.aidaconsulting.ca/assets/og.svg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "AIDA Consulting Solutions",
+    "url": "https://www.aidaconsulting.ca/",
+    "description": "AI and data consulting: AI strategy, AI agents and assistants, data engineering and data quality.",
+    "founder": { "@type": "Person", "name": "Atam Singh", "sameAs": "https://www.linkedin.com/in/atamsingh" },
+    "areaServed": "CA",
+    "address": { "@type": "PostalAddress", "addressLocality": "Ottawa", "addressRegion": "ON", "addressCountry": "CA" },
+    "knowsAbout": ["Artificial intelligence consulting", "Generative AI", "AI agents", "Retrieval-augmented generation", "Data engineering", "Data quality", "Data governance"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../" aria-label="AIDA Consulting Solutions, home">
+        <svg class="brand-mark" viewBox="-2 -3 100 89" aria-hidden="true"><defs><clipPath id="lm"><path d="M50 0 100 83H0z"/></clipPath></defs><path d="M50 0 100 83H0z" fill="var(--logo-navy)"/><path d="M26.9 38.3 53.2 83H0z" fill="var(--logo-light)"/><path d="M14.8 58.5 29.8 83H0z" fill="var(--logo-blue)"/><g stroke="var(--logo-navy)" fill="var(--logo-navy)"><path d="M40 40H56L80 24M50 46H66L86 33M62 51H72L87 41M46 62H64L80 51H92M59 69H70L84 59" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="40" r="2.7"/><circle cx="80" cy="24" r="2.7"/><circle cx="50" cy="46" r="2.7"/><circle cx="86" cy="33" r="2.7"/><circle cx="62" cy="51" r="2.7"/><circle cx="87" cy="41" r="2.7"/><circle cx="46" cy="62" r="2.7"/><circle cx="92" cy="51" r="2.7"/><circle cx="59" cy="69" r="2.7"/><circle cx="84" cy="59" r="2.7"/></g><g stroke="var(--bg)" fill="var(--bg)" clip-path="url(#lm)"><path d="M40 40H56L80 24M50 46H66L86 33M62 51H72L87 41M46 62H64L80 51H92M59 69H70L84 59" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="40" r="2.7"/><circle cx="80" cy="24" r="2.7"/><circle cx="50" cy="46" r="2.7"/><circle cx="86" cy="33" r="2.7"/><circle cx="62" cy="51" r="2.7"/><circle cx="87" cy="41" r="2.7"/><circle cx="46" cy="62" r="2.7"/><circle cx="92" cy="51" r="2.7"/><circle cx="59" cy="69" r="2.7"/><circle cx="84" cy="59" r="2.7"/></g></svg>
+        <span>AIDA <span class="brand-sub">Consulting Solutions</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="../ai-consulting/">AI consulting</a>
+        <a href="../ai-agents/" aria-current="page">AI agents</a>
+        <a href="../ai-ready-data/">AI-ready data</a>
+        <a href="../public-sector/">Public sector</a>
+        <a href="../#about">About</a>
+      </nav>
+      <details class="menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile">
+        <a href="../ai-consulting/">AI consulting</a>
+        <a href="../ai-agents/" aria-current="page">AI agents</a>
+        <a href="../ai-ready-data/">AI-ready data</a>
+        <a href="../public-sector/">Public sector</a>
+          <a href="../#about">About</a>
+        </nav>
+      </details>
+      <a class="btn btn-small" href="#contact">Get in touch</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-landing" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">AI agents, assistants &amp; RAG</p>
+          <h1>AI assistants and agents that are <em>ready for real users.</em></h1>
+          <p class="lede">Anyone can build a demo in an afternoon. We build AI assistants, retrieval (RAG) systems and agent workflows grounded in your own data, with the testing and guardrails needed to put them in front of staff and customers.</p>
+          <div class="actions">
+            <a class="btn" href="#contact">Talk about your AI project</a>
+            <a class="link-arrow" href="#offer">See what you get</a>
+          </div>
+        </div>
+        <ul class="points">
+            <li>Grounded in your documents and data</li>
+            <li>Accuracy measured, not assumed</li>
+            <li>Human review where it matters</li>
+            <li>Built to be maintained by your team</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="problem">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Sound familiar?</p>
+          <h2>The demo was the easy part.</h2>
+        </div>
+        <ul class="pains">
+          <li>“It answers confidently, and sometimes wrongly.”</li>
+          <li>“It works on ten test questions and fails on the eleventh.”</li>
+          <li>“We can’t tell whether a change made it better or worse.”</li>
+          <li>“Legal and compliance won’t sign off on it.”</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="offer">
+      <div class="wrap">
+        <p class="eyebrow">What we do</p>
+        <h2>What we build.</h2>
+        <div class="cards cards-4">
+          <article class="card">
+            <div class="card-head"><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h32v22H22l-9 8v-8H8z"/><path d="M16 18h16M16 25h10"/></svg><span class="card-label">Assistants</span></div>
+            <h3>Knowledge assistants</h3>
+            <p>Chat over your own documents, policies and data, with answers that cite where they came from.</p>
+            <p class="gets-label">What you get</p>
+            <ul>
+              <li>Retrieval (RAG) tuned to your content</li>
+              <li>Source citations on answers</li>
+              <li>Access rules respected</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="card-head"><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="5"/><circle cx="9" cy="11" r="3"/><circle cx="39" cy="11" r="3"/><circle cx="9" cy="37" r="3"/><circle cx="39" cy="37" r="3"/><path d="M11.5 13l8.5 7.5M36.5 13 28 20.5M11.5 35l8.5-7.5M36.5 35 28 27.5"/></svg><span class="card-label">Agents</span></div>
+            <h3>Agent workflows</h3>
+            <p>Multi-step processes automated by AI agents, with a person approving the steps that matter.</p>
+            <p class="gets-label">What you get</p>
+            <ul>
+              <li>Agents connected to your systems</li>
+              <li>Human-in-the-loop approvals</li>
+              <li>Clear logs of every action</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="card-head"><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M15 24l6 6 12-13"/></svg><span class="card-label">Quality</span></div>
+            <h3>Evaluation &amp; guardrails</h3>
+            <p>The part most demos skip: proving it is accurate, and keeping it that way after launch.</p>
+            <p class="gets-label">What you get</p>
+            <ul>
+              <li>Test sets built from real questions</li>
+              <li>Human review plus LLM judges</li>
+              <li>Monitoring in production</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="card-head"><svg class="card-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14h14v8H6zM28 26h14v8H28zM6 30h8M20 18h6a4 4 0 0 1 4 4v4M14 30h14"/></svg><span class="card-label">Rescue</span></div>
+            <h3>Pilot rescue</h3>
+            <p>Already have a prototype that isn’t good enough to ship? We find out why and fix it.</p>
+            <p class="gets-label">What you get</p>
+            <ul>
+              <li>A diagnosis of what is failing</li>
+              <li>Fixes to retrieval, prompts and data</li>
+              <li>A path to production</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="how">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h2>Ground it. Test it. Ship it.</h2>
+        <ol class="steps">
+          <li>
+            <h3>Ground</h3>
+            <p>We connect the AI to the right data and documents, so it answers from your facts, not its imagination.</p>
+          </li>
+          <li>
+            <h3>Test</h3>
+            <p>We build an evaluation set and measure quality with human reviewers and automated judges, before and after every change.</p>
+          </li>
+          <li>
+            <h3>Ship</h3>
+            <p>We deploy with monitoring and guardrails, document everything, and train your team to run it.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section results" id="results">
+      <div class="wrap">
+        <p class="eyebrow">Results</p>
+        <h2>AI we have put into production.</h2>
+        <p class="section-intro">Drawn from work our principal has led or delivered.</p>
+        <dl class="results-grid">
+          <div><dt>AI in production</dt><dd>Thousands of results interpreted by AI for practitioners, with human review and automated judges keeping quality in check.</dd></div>
+          <div><dt>Answers on demand</dt><dd>An internal retrieval chatbot giving senior leaders context-specific answers with minimal manual work.</dd></div>
+          <div><dt>10-person team</dt><dd>Data scientists, developers and DevOps engineers led through the build of a tool used by 3,500+ people.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Questions</p>
+          <h2>What people ask us first.</h2>
+          <p class="section-intro">Led by <a href="../#about">Atam Singh</a>, a principal engineer with 10+ years in data and AI. You work with him directly.</p>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>How do you stop it making things up?</summary>
+            <p>Three ways: grounding answers in your own data through retrieval, measuring accuracy against a test set built from real questions, and keeping a person in the loop where a wrong answer would be costly.</p>
+          </details>
+          <details>
+            <summary>Which models and frameworks do you use?</summary>
+            <p>Whatever fits. We have built with OpenAI models, open-source models from Hugging Face, and frameworks including LangGraph, LangChain and Pydantic AI. We will recommend based on your accuracy, cost and privacy needs.</p>
+          </details>
+          <details>
+            <summary>Can it work with our existing systems?</summary>
+            <p>Usually, yes. Assistants and agents are most useful when connected to the databases, documents and APIs you already have. Working out those connections is part of the first conversation.</p>
+          </details>
+          <details>
+            <summary>We already have a prototype. Can you take it over?</summary>
+            <p>Yes. We start by measuring how it performs today, then fix what is holding it back, which is often the data and retrieval and not the model.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Get in touch</p>
+          <h2>Have an AI idea, or a demo that needs to grow up?</h2>
+          <p>Tell us what you want it to do. We will tell you what it takes to make it reliable.</p>
+          <ol class="next">
+            <li><span>1</span>You tell us about your challenge</li>
+            <li><span>2</span>We talk it through together</li>
+            <li><span>3</span>You get a proposed plan and scope</li>
+          </ol>
+          <p class="contact-alt">Prefer LinkedIn? <a href="https://www.linkedin.com/in/atamsingh" target="_blank" rel="noopener">Message Atam directly</a>.</p>
+        </div>
+
+        <div class="form-card">
+          <form class="contact-form" action="https://docs.google.com/forms/d/e/1FAIpQLSd4dWFzGbmAxxguMpqVNaVb6ff8SF5sv4adQ7LhOCOJPltsIQ/formResponse" method="post" data-page="AI agents, assistants & RAG"
+                data-name="entry.2005620554" data-email="entry.1045781291" data-phone="entry.1166974658" data-comments="entry.839337160">
+            <div class="field-row">
+              <label>Name
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Work email
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="field-row">
+              <label><span>Organization <span class="optional">optional</span></span>
+                <input type="text" name="company" autocomplete="organization">
+              </label>
+              <label><span>Phone <span class="optional">optional</span></span>
+                <input type="tel" name="phone" autocomplete="tel">
+              </label>
+            </div>
+            <label>What do you need help with?
+              <select name="topic" required>
+                <option>AI strategy: where to start</option>
+                <option selected>AI agents and assistants</option>
+                <option>Data engineering and pipelines</option>
+                <option>Data quality and governance</option>
+                <option>Public-sector project</option>
+                <option>Something else</option>
+              </select>
+            </label>
+            <label>Tell us a little about it
+              <textarea name="message" rows="5" required placeholder="What are you trying to achieve, and what is getting in the way?"></textarea>
+            </label>
+            <label class="hp" aria-hidden="true">Leave this field empty
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+            <button class="btn btn-accent" type="submit">Send message</button>
+            <p class="form-note">We only use your details to reply to you.</p>
+            <p class="form-error" role="alert" hidden>Something went wrong sending your message. Please try again, or <a href="https://www.linkedin.com/in/atamsingh" target="_blank" rel="noopener">message us on LinkedIn</a>.</p>
+          </form>
+          <div class="form-done" role="status" tabindex="-1" hidden>
+            <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20"/><path d="M15 24l6 6 12-13"/></svg>
+            <h3>Thanks, your message is on its way.</h3>
+            <p>We will read it and reply by email.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> AIDA Consulting Solutions · Ottawa, Canada</p>
+      <nav aria-label="Footer">
+        <a href="../ai-consulting/">AI consulting</a>
+        <a href="../ai-agents/" aria-current="page">AI agents</a>
+        <a href="../ai-ready-data/">AI-ready data</a>
+        <a href="../public-sector/">Public sector</a>
+        <a href="../#about">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="../assets/contact.js" defer></script>
+</body>
+</html>

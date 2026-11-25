@@ -1,0 +1,41 @@
+<figure class="pipeline" aria-label="Diagram: raw sources flow through engineering and science into a data product">
+          <svg viewBox="0 0 440 360" role="img" aria-hidden="true">
+            <g class="p-lines" fill="none" stroke-width="1.5">
+              <path d="M92 70 C150 70 150 180 208 180"/>
+              <path d="M92 180 H208"/>
+              <path d="M92 290 C150 290 150 180 208 180"/>
+              <path d="M272 180 H348"/>
+            </g>
+            <g class="p-flow" fill="none" stroke-width="2" stroke-linecap="round">
+              <path d="M92 70 C150 70 150 180 208 180"/>
+              <path d="M92 180 H208"/>
+              <path d="M92 290 C150 290 150 180 208 180"/>
+              <path d="M272 180 H348"/>
+            </g>
+            <g class="p-node">
+              <rect x="28" y="46" width="64" height="48" rx="10"/>
+              <rect x="28" y="156" width="64" height="48" rx="10"/>
+              <rect x="28" y="266" width="64" height="48" rx="10"/>
+            </g>
+            <g class="p-glyph" fill="none" stroke-width="1.6" stroke-linecap="round">
+              <path d="M46 62h28M46 70h28M46 78h18"/>
+              <ellipse cx="60" cy="172" rx="13" ry="5"/><path d="M47 172v16c0 2.8 5.8 5 13 5s13-2.2 13-5v-16"/>
+              <path d="M46 300l8-10 7 6 13-16"/>
+            </g>
+            <circle class="p-core" cx="240" cy="180" r="32"/>
+            <path class="p-core-mark" d="M228 192l12-24 12 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect class="p-out" x="348" y="140" width="68" height="80" rx="12"/>
+            <g class="p-out-glyph">
+              <rect x="362" y="186" width="8" height="20" rx="2"/>
+              <rect x="378" y="172" width="8" height="34" rx="2"/>
+              <rect x="394" y="156" width="8" height="50" rx="2"/>
+            </g>
+            <g class="p-label">
+              <text x="60" y="118" text-anchor="middle">events</text>
+              <text x="60" y="228" text-anchor="middle">databases</text>
+              <text x="60" y="338" text-anchor="middle">metrics</text>
+              <text x="240" y="238" text-anchor="middle">engineering + AI</text>
+              <text x="382" y="244" text-anchor="middle">data product</text>
+            </g>
+          </svg>
+        </figure>
