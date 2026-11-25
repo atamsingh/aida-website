@@ -37,6 +37,14 @@ Each post is an HTML fragment in `posts/<slug>.html`, listed in `POSTS` in `buil
 `<mark class="todo">` show highlighted in yellow: they are drafted for Atam to vet.
 Remove the `<mark>` tags once checked; the build lists posts that still have them.
 
+## Weekly post (scheduled)
+
+A scheduled task in the Claude desktop app runs each weekday morning and follows
+`posts/_WEEKLY.md`. `tools/weekly_gate.py` lets it write on one randomly chosen weekday
+per week; `tools/check_site.py` must pass before it publishes. A post that fails the
+checks is moved to `posts/_held/` and not published. `posts/_TOPICS.md` holds the
+topic backlog and the log of what has been published.
+
 ## Booking link
 
 Set `BOOKING_URL` at the top of `build.py` to a Calendly or Google Calendar booking

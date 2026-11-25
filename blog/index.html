@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=45b58490">
+  <link rel="stylesheet" href="../styles.css?v=47f60a75">
 
   <script type="application/ld+json">
   {
@@ -79,46 +79,59 @@
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section section-alt blog-list">
       <div class="wrap">
+        <div class="blog-tools">
+          <div class="blog-filters" role="group" aria-label="Filter posts by topic">
+            <button type="button" class="chip is-active" data-filter="">All</button>
+            <button type="button" class="chip" data-filter="Getting started">Getting started</button>
+            <button type="button" class="chip" data-filter="AI assistants">AI assistants</button>
+            <button type="button" class="chip" data-filter="Data foundations">Data foundations</button>
+            <button type="button" class="chip" data-filter="Privacy and risk">Privacy and risk</button>
+          </div>
+          <label class="blog-search"><span class="visually-hidden">Search posts</span>
+            <input type="search" placeholder="Search posts" autocomplete="off">
+          </label>
+        </div>
         <div class="post-cards">
-          <a class="post-card" href="../blog/chatbot-that-knows-your-business/">
-            <span class="post-card-meta">AI assistants</span>
+          <a class="post-card" href="../blog/chatbot-that-knows-your-business/" data-tag="AI assistants" data-text="a chatbot that actually knows your business how an ai assistant can answer from your own documents and show its sources, and what has to be true for it to work. ai assistants">
+            <span class="post-card-meta">AI assistants · Nov 25, 2026</span>
             <strong>A chatbot that actually knows your business</strong>
             <span class="post-card-summary">How an AI assistant can answer from your own documents and show its sources, and what has to be true for it to work.</span>
             <span class="post-card-more">Read the post</span>
           </a>
-          <a class="post-card" href="../blog/weekly-report-that-builds-itself/">
-            <span class="post-card-meta">Reporting</span>
+          <a class="post-card" href="../blog/weekly-report-that-builds-itself/" data-tag="Data foundations" data-text="the weekly report that builds itself the hours spent copying numbers into a weekly report can be automated, and it is mostly plumbing, not ai. data foundations">
+            <span class="post-card-meta">Data foundations · Nov 25, 2026</span>
             <strong>The weekly report that builds itself</strong>
             <span class="post-card-summary">The hours spent copying numbers into a weekly report can be automated, and it is mostly plumbing, not AI.</span>
             <span class="post-card-more">Read the post</span>
           </a>
-          <a class="post-card" href="../blog/why-ai-projects-fail/">
-            <span class="post-card-meta">Getting AI right</span>
+          <a class="post-card" href="../blog/why-ai-projects-fail/" data-tag="Getting started" data-text="why most ai projects fail, and the boring fix ai projects rarely fail because of the ai. they fail on scattered, untrusted information, and the fix is boring. getting started">
+            <span class="post-card-meta">Getting started · Nov 25, 2026</span>
             <strong>Why most AI projects fail, and the boring fix</strong>
             <span class="post-card-summary">AI projects rarely fail because of the AI. They fail on scattered, untrusted information, and the fix is boring.</span>
             <span class="post-card-more">Read the post</span>
           </a>
-          <a class="post-card" href="../blog/is-your-business-ready-for-ai/">
-            <span class="post-card-meta">Getting started</span>
+          <a class="post-card" href="../blog/is-your-business-ready-for-ai/" data-tag="Getting started" data-text="five signs your business is ready for ai, and three signs it isn’t eight quick tests to tell whether a first ai project will pay off, or whether “not yet” is the smarter answer. getting started">
+            <span class="post-card-meta">Getting started · Nov 25, 2026</span>
             <strong>Five signs your business is ready for AI, and three signs it isn’t</strong>
             <span class="post-card-summary">Eight quick tests to tell whether a first AI project will pay off, or whether “not yet” is the smarter answer.</span>
             <span class="post-card-more">Read the post</span>
           </a>
-          <a class="post-card" href="../blog/three-versions-of-every-customer/">
-            <span class="post-card-meta">Clean data</span>
+          <a class="post-card" href="../blog/three-versions-of-every-customer/" data-tag="Data foundations" data-text="why you have three versions of every customer the same customer, spelled three ways in three systems: why it happens, what it costs, and the fix that comes before ai. data foundations">
+            <span class="post-card-meta">Data foundations · Nov 25, 2026</span>
             <strong>Why you have three versions of every customer</strong>
             <span class="post-card-summary">The same customer, spelled three ways in three systems: why it happens, what it costs, and the fix that comes before AI.</span>
             <span class="post-card-more">Read the post</span>
           </a>
-          <a class="post-card" href="../blog/is-your-data-safe-with-ai/">
-            <span class="post-card-meta">Privacy</span>
+          <a class="post-card" href="../blog/is-your-data-safe-with-ai/" data-tag="Privacy and risk" data-text="is your data safe with ai? questions every canadian business should ask seven plain questions to ask before business information goes into an ai tool, and three habits that lower risk. privacy and risk">
+            <span class="post-card-meta">Privacy and risk · Nov 25, 2026</span>
             <strong>Is your data safe with AI? Questions every Canadian business should ask</strong>
             <span class="post-card-summary">Seven plain questions to ask before business information goes into an AI tool, and three habits that lower risk.</span>
             <span class="post-card-more">Read the post</span>
           </a>
         </div>
+        <p class="blog-empty" hidden>No posts match. Try another topic or a different search.</p>
       </div>
     </section>
 
@@ -184,6 +197,7 @@
         </div>
       </div>
     </section>
+    <script src="../assets/blog.js?v=775d21e6" defer></script>
   </main>
 
   <footer class="site-footer">

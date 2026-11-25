@@ -277,16 +277,18 @@ R = {
 # The body of each post is an HTML fragment in posts/<slug>.html.
 # "featured" posts are the ones shown on the home page.
 AUTHOR = "Atam Singh"
+# Every post's "tag" must be one of these; they are the filter buttons on /blog/.
+CATEGORIES = ["Getting started", "AI assistants", "Data foundations", "Privacy and risk", "News"]
 POSTS = [
     {"slug": "chatbot-that-knows-your-business", "tag": "AI assistants", "featured": True, "date": "2026-11-25",
      "title": "A chatbot that actually knows your business",
      "summary": "How an AI assistant can answer from your own documents and show its sources, and what has to be true for it to work.",
      "description": "Generic chatbots know the internet, not your business. How an assistant can answer from your own documents, what makes it work, and when to skip it."},
-    {"slug": "weekly-report-that-builds-itself", "tag": "Reporting", "featured": True, "date": "2026-11-25",
+    {"slug": "weekly-report-that-builds-itself", "tag": "Data foundations", "featured": True, "date": "2026-11-25",
      "title": "The weekly report that builds itself",
      "summary": "The hours spent copying numbers into a weekly report can be automated, and it is mostly plumbing, not AI.",
      "description": "How to automate the weekly report someone builds by hand: pull the numbers, agree the definitions, deliver on a schedule. No data team needed."},
-    {"slug": "why-ai-projects-fail", "tag": "Getting AI right", "featured": True, "date": "2026-11-25",
+    {"slug": "why-ai-projects-fail", "tag": "Getting started", "featured": True, "date": "2026-11-25",
      "title": "Why most AI projects fail, and the boring fix",
      "summary": "AI projects rarely fail because of the AI. They fail on scattered, untrusted information, and the fix is boring.",
      "description": "Most AI projects fail on the information underneath, not the AI. Here are the six steps, the boring fix, and how to tell where you are stuck."},
@@ -294,11 +296,11 @@ POSTS = [
      "title": "Five signs your business is ready for AI, and three signs it isn’t",
      "summary": "Eight quick tests to tell whether a first AI project will pay off, or whether “not yet” is the smarter answer.",
      "description": "A practical self-check: five signs your business is ready for a first AI project, three signs it is not yet, and what to do about each."},
-    {"slug": "three-versions-of-every-customer", "tag": "Clean data", "featured": False, "date": "2026-11-25",
+    {"slug": "three-versions-of-every-customer", "tag": "Data foundations", "featured": False, "date": "2026-11-25",
      "title": "Why you have three versions of every customer",
      "summary": "The same customer, spelled three ways in three systems: why it happens, what it costs, and the fix that comes before AI.",
      "description": "Why the same customer shows up three ways in your accounting system, CRM and spreadsheets, what it costs, and how to fix it before any AI project."},
-    {"slug": "is-your-data-safe-with-ai", "tag": "Privacy", "featured": False, "date": "2026-11-25",
+    {"slug": "is-your-data-safe-with-ai", "tag": "Privacy and risk", "featured": False, "date": "2026-11-25",
      "title": "Is your data safe with AI? Questions every Canadian business should ask",
      "summary": "Seven plain questions to ask before business information goes into an AI tool, and three habits that lower risk.",
      "description": "Seven plain questions to ask any AI vendor before your business information goes in, plus three simple habits that lower the risk today."},
@@ -313,7 +315,13 @@ def post_body(post):
 
 
 def available_posts():
-    return [p for p in POSTS if post_body(p)]
+    """Posts that have a body file, newest first."""
+    return sorted((p for p in POSTS if post_body(p)), key=lambda p: p["date"], reverse=True)
+
+
+def short_date(post):
+    y, m, d = post["date"].split("-")
+    return f"{MONTHS[int(m) - 1][:3]} {int(d)}, {y}"
 
 
 def post_meta(post):
@@ -325,8 +333,9 @@ def post_meta(post):
 def post_cards(posts, base):
     cards = []
     for p in posts:
-        cards.append(f"""          <a class="post-card" href="{base}blog/{p['slug']}/">
-            <span class="post-card-meta">{p['tag']}</span>
+        text = f"{p['title']} {p['summary']} {p['tag']}".lower().replace('"', "")
+        cards.append(f"""          <a class="post-card" href="{base}blog/{p['slug']}/" data-tag="{p['tag']}" data-text="{text}">
+            <span class="post-card-meta">{p['tag']} · {short_date(p)}</span>
             <strong>{p['title']}</strong>
             <span class="post-card-summary">{p['summary']}</span>
             <span class="post-card-more">Read the post</span>
@@ -335,7 +344,7 @@ def post_cards(posts, base):
 
 
 def home_blog():
-    posts = [p for p in available_posts() if p["featured"]][:4]
+    posts = [p for p in available_posts() if p["featured"]][:4]  # newest first
     if not posts:
         return ""
     return f"""    <section class="section section-alt" id="blog">
@@ -353,6 +362,9 @@ def home_blog():
 
 
 def blog_index():
+    posts = available_posts()
+    used = [c for c in CATEGORIES if any(p["tag"] == c for p in posts)]
+    chips = "\n".join(f'            <button type="button" class="chip" data-filter="{c}">{c}</button>' for c in used)
     body = f"""    <section class="hero hero-blog" id="top">
       <div class="wrap">
         <p class="eyebrow">Blog</p>
@@ -361,15 +373,26 @@ def blog_index():
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section section-alt blog-list">
       <div class="wrap">
-        <div class="post-cards">
-{post_cards(available_posts(), "../")}
+        <div class="blog-tools">
+          <div class="blog-filters" role="group" aria-label="Filter posts by topic">
+            <button type="button" class="chip is-active" data-filter="">All</button>
+{chips}
+          </div>
+          <label class="blog-search"><span class="visually-hidden">Search posts</span>
+            <input type="search" placeholder="Search posts" autocomplete="off">
+          </label>
         </div>
+        <div class="post-cards">
+{post_cards(posts, "../")}
+        </div>
+        <p class="blog-empty" hidden>No posts match. Try another topic or a different search.</p>
       </div>
     </section>
 
-{contact()}"""
+{contact()}
+    <script src="../assets/blog.js?v={version("assets/blog.js")}" defer></script>"""
     return layout("blog/", "Blog: Plain Answers About AI and Data | AIDA Consulting",
                   "Plain-language posts about putting AI and data to work in a business, by Atam Singh of AIDA Consulting.",
                   body, "../")
@@ -1077,6 +1100,8 @@ def main():
         (out / "index.html").write_text(landing(p), encoding="utf-8")
         urls.append(f"{SITE}/{p['path']}")
     posts = available_posts()
+    for post in posts:
+        assert post["tag"] in CATEGORIES, f"{post['slug']}: tag must be one of {CATEGORIES}"
     missing = [p["slug"] for p in POSTS if p not in posts]
     if posts:
         (ROOT / "blog").mkdir(exist_ok=True)
