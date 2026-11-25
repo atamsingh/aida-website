@@ -13,6 +13,7 @@ Static site for https://www.aidaconsulting.ca/ — plain HTML and CSS, generated
 | `/data-engineering/` | Landing page for technical buyers: pipelines, warehouse, cloud cost |
 | `/ai-ready-data/` | Landing page for getting data ready for AI |
 | `/blog/` | Blog index and six posts |
+| `/privacy/` | Privacy page (linked from the footer and the contact form) |
 | `/public-sector/` | Landing page for government teams (not in the menu; reach it by URL or ads) |
 
 ## Editing
@@ -47,8 +48,16 @@ topic backlog and the log of what has been published.
 
 ## Booking link
 
-Set `BOOKING_URL` at the top of `build.py` to a Calendly or Google Calendar booking
-link and every main button becomes "Book a 30-minute call".
+`BOOKING_URL` at the top of `build.py` is the Calendly link. While it is set, every main
+button reads "Book a 30-minute call"; the contact form stays as the alternative.
+
+## Google Ads tracking
+
+Set `GOOGLE_TAG_ID` (the `AW-...` id, not the account number) and the two conversion
+labels at the top of `build.py`, then rebuild. The tag then loads on every page, a
+conversion fires when a contact form is confirmed sent and when a booking link is
+clicked, and the privacy page gains an "Advertising measurement" section. With
+`GOOGLE_TAG_ID` empty, no tracking code is loaded.
 
 ## Contact form
 

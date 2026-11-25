@@ -26,8 +26,32 @@ TOPICS = ["AI strategy: where to start", "AI agents and assistants", "Data engin
 LINKEDIN = "https://www.linkedin.com/in/atamsingh"
 # Paste a Calendly or Google Calendar booking link here and every main button
 # becomes "Book a 30-minute call". Leave empty to send people to the contact form.
-BOOKING_URL = ""
+BOOKING_URL = "https://calendly.com/atamsingh-aidaconsulting/30min"
 BOOKING_LABEL = "Book a 30-minute call"
+
+# Google Ads conversion tracking. Leave GOOGLE_TAG_ID empty to load no tracking at all.
+# GOOGLE_TAG_ID is the "AW-..." id from the tag snippet Google Ads gives you (it is NOT
+# the 10-digit account number). The two labels are the part after the "/" in each
+# conversion action's send_to value: one for a sent contact form, one for a click on
+# the booking link.
+GOOGLE_ADS_ACCOUNT = "923-620-7990"   # account number, for reference only
+GOOGLE_TAG_ID = ""
+GOOGLE_ADS_LEAD_LABEL = ""
+GOOGLE_ADS_BOOKING_LABEL = ""
+PRIVACY_UPDATED = "November 25, 2026"
+
+
+def google_tag():
+    if not GOOGLE_TAG_ID:
+        return ""
+    return f"""  <script async src="https://www.googletagmanager.com/gtag/js?id={GOOGLE_TAG_ID}"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){{dataLayer.push(arguments);}} gtag('js', new Date()); gtag('config', '{GOOGLE_TAG_ID}');</script>
+"""
+
+
+def conv(label):
+    """send_to value for a conversion, or empty when tracking is not set up."""
+    return f"{GOOGLE_TAG_ID}/{label}" if GOOGLE_TAG_ID and label else ""
 LOGO = (ROOT / "partials/logo-mark.svg").read_text().strip()
 PIPELINE = (ROOT / "partials/pipeline.svg").read_text().strip()
 
@@ -86,6 +110,7 @@ def layout(path, title, description, body, base, extra_head=""):
             for href, label, in_header in NAV if in_header or not header_only
         )
     nav, footer_nav = links(True), links(False)
+    footer_nav += '\n        <a href="%sprivacy/"%s>Privacy</a>' % (base, ' aria-current="page"' if path == "privacy/" else "")
     about = "#about" if path == "" else f"{base}#about"
     return f"""<!doctype html>
 <html lang="en-CA">
@@ -112,7 +137,7 @@ def layout(path, title, description, body, base, extra_head=""):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{base}styles.css?v={version("styles.css")}">
-{extra_head}
+{google_tag()}{extra_head}
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
@@ -175,20 +200,20 @@ def layout(path, title, description, body, base, extra_head=""):
 def booking_block():
     if not BOOKING_URL:
         return ""
-    return f'''          <p class="contact-book"><a class="btn btn-accent" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a><span>or send a message with the form</span></p>
+    return f'''          <p class="contact-book"><a class="btn btn-accent js-booking" data-conv="{conv(GOOGLE_ADS_BOOKING_LABEL)}" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a><span>or send a message with the form</span></p>
 '''
 
 
 def primary_cta(label):
     """Main call-to-action button: the booking link if set, else the contact form."""
     if BOOKING_URL:
-        return f'<a class="btn" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a>'
+        return f'<a class="btn js-booking" data-conv="{conv(GOOGLE_ADS_BOOKING_LABEL)}" href="{BOOKING_URL}" target="_blank" rel="noopener">{BOOKING_LABEL}</a>'
     return f'<a class="btn" href="#contact">{label}</a>'
 
 
 def contact(heading="Have an AI or data challenge? Let’s talk it through.",
             text="No pitch deck. Tell us what you are dealing with and we will tell you honestly whether we can help.",
-            topic=None, page="Home"):
+            topic=None, page="Home", base=""):
     options = "\n".join(
         '                <option%s>%s</option>' % (" selected" if t == topic else "", t) for t in TOPICS)
     placeholder = "" if topic else '                <option value="" selected disabled>Choose one</option>\n'
@@ -207,7 +232,7 @@ def contact(heading="Have an AI or data challenge? Let’s talk it through.",
         </div>
 
         <div class="form-card">
-          <form class="contact-form" action="{WEB3FORMS_URL}" method="post" data-page="{page}" data-backup="{FORM_POST}"
+          <form class="contact-form" action="{WEB3FORMS_URL}" method="post" data-page="{page}" data-backup="{FORM_POST}" data-conv="{conv(GOOGLE_ADS_LEAD_LABEL)}"
                 data-name="{FIELD["name"]}" data-email="{FIELD["email"]}" data-phone="{FIELD["phone"]}" data-comments="{FIELD["comments"]}">
             <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
             <input type="hidden" name="from_name" value="AIDA Consulting website">
@@ -240,7 +265,7 @@ def contact(heading="Have an AI or data challenge? Let’s talk it through.",
               <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
             </label>
             <button class="btn btn-accent" type="submit">Send message</button>
-            <p class="form-note">We only use your details to reply to you.</p>
+            <p class="form-note">We only use your details to reply to you. <a href="{base}privacy/">Privacy</a></p>
             <p class="form-error" role="alert" hidden>Something went wrong sending your message. Please try again, or <a href="{LINKEDIN}" target="_blank" rel="noopener">message us on LinkedIn</a>.</p>
           </form>
           <div class="form-done" role="status" tabindex="-1" hidden>
@@ -399,7 +424,7 @@ def blog_index():
       </div>
     </section>
 
-{contact()}
+{contact(base="../")}
     <script src="../assets/blog.js?v={version("assets/blog.js")}" defer></script>"""
     return layout("blog/", "Blog: Plain Answers About AI and Data | AIDA Consulting",
                   "Plain-language posts about putting AI and data to work in a business, by Atam Singh of AIDA Consulting.",
@@ -438,7 +463,7 @@ def post_page(post):
       </div>
     </article>
 {more}
-{contact("Want to talk through how this applies to you?", "Tell us what you do and where the time goes. We will tell you honestly whether we can help.", page="Blog: " + post['title'])}"""
+{contact("Want to talk through how this applies to you?", "Tell us what you do and where the time goes. We will tell you honestly whether we can help.", page="Blog: " + post['title'], base="../../")}"""
     ld = f"""  <script type="application/ld+json">
   {{ "@context": "https://schema.org", "@type": "BlogPosting", "headline": "{post['title']}", "datePublished": "{post['date']}",
     "author": {{ "@type": "Person", "name": "{AUTHOR}", "url": "{LINKEDIN}" }},
@@ -695,6 +720,67 @@ def home():
                   body, "")
 
 
+# ---------------------------------------------------------------- privacy page
+
+def privacy_page():
+    ads = """
+        <h2>Advertising measurement</h2>
+        <p>If you reach this site from one of our Google ads, a Google Ads tag records whether you then sent the contact form or clicked the booking link, so we can tell which ads are useful. Google may set cookies in your browser to do this, and handles that information under its own privacy policy. We do not use it to identify you.</p>""" if GOOGLE_TAG_ID else ""
+    cookies = ("Apart from the advertising measurement described below, this site sets no cookies of its own and runs no analytics."
+               if GOOGLE_TAG_ID else "This site sets no cookies of its own and runs no analytics or advertising trackers.")
+    body = f"""    <article class="post">
+      <header class="post-header">
+        <div class="wrap post-wrap">
+          <p class="eyebrow">Privacy</p>
+          <h1>How we handle your information</h1>
+          <p class="post-meta">Last updated {PRIVACY_UPDATED}</p>
+        </div>
+      </header>
+      <div class="wrap post-wrap post-body privacy">
+        <p class="lead">This page explains, in plain language, what personal information this website collects, why, and who handles it.</p>
+
+        <h2>Who we are</h2>
+        <p>AIDA Consulting Solutions is an AI and data consultancy based in Ottawa, Ontario. Atam Singh, the founder, is responsible for how personal information is handled.</p>
+
+        <h2>What we collect, and why</h2>
+        <ul>
+          <li><strong>When you send the contact form:</strong> your name, your email address, the topic you choose and your message, plus your organization and phone number if you add them. We use these only to reply to you and to discuss possible work with you.</li>
+          <li><strong>When you book a call:</strong> the booking is made through Calendly, which asks for your name, your email address and anything you choose to add.</li>
+          <li><strong>When you contact us another way,</strong> such as on LinkedIn: whatever you choose to send.</li>
+        </ul>
+        <p>We do not sell personal information, and we do not add you to a mailing list.</p>
+
+        <h2>Other companies that handle it for us</h2>
+        <p>We rely on a small number of services to run this site and answer you. Each handles information under its own privacy policy.</p>
+        <ul>
+          <li><strong>Web3Forms</strong> delivers contact form messages to us by email.</li>
+          <li><strong>Google</strong> provides our email, and a backup copy of each contact form message is kept in Google Forms.</li>
+          <li><strong>Calendly</strong> handles call bookings.</li>
+          <li><strong>GitHub</strong> hosts this website. Like any web host, it receives your IP address and basic browser details when you load a page.</li>
+          <li><strong>Google Fonts</strong> supplies the typefaces, so your browser requests them from Google when a page loads.</li>
+        </ul>
+        <p>Some of these companies store or process information outside Canada, including in the United States.</p>
+
+        <h2>Cookies and tracking</h2>
+        <p>{cookies}</p>{ads}
+
+        <h2>How long we keep it</h2>
+        <p>We keep enquiries for as long as we are in contact with you, and afterwards as part of our business records. You can ask us to delete yours at any time.</p>
+
+        <h2>Your choices</h2>
+        <p>You can ask to see the personal information we hold about you, to have it corrected, or to have it deleted. Send the request through the <a href="../#contact">contact form</a> or to Atam on <a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a>, and we will respond.</p>
+        <p>If you are not satisfied with how we handle a request, you can contact the Office of the Privacy Commissioner of Canada.</p>
+
+        <h2>Changes to this page</h2>
+        <p>If we change how we handle personal information, we will update this page and the date at the top.</p>
+      </div>
+    </article>
+"""
+    return layout("privacy/", "Privacy | AIDA Consulting Solutions",
+                  "What personal information the AIDA Consulting website collects, why, and who handles it.",
+                  body, "../")
+
+
 # ---------------------------------------------------------------- landing pages
 
 def bridge(b):
@@ -808,7 +894,7 @@ def landing(p):
       </div>
     </section>
 
-{contact(p["contact_heading"], p["contact_text"], p["topic"], p["eyebrow"].replace("&amp;", "&"))}"""
+{contact(p["contact_heading"], p["contact_text"], p["topic"], p["eyebrow"].replace("&amp;", "&"), base="../")}"""
     return layout(p["path"], p["title"], p["description"], body, "../")
 
 
@@ -1107,6 +1193,9 @@ def main():
         out.mkdir(exist_ok=True)
         (out / "index.html").write_text(landing(p), encoding="utf-8")
         urls.append(f"{SITE}/{p['path']}")
+    (ROOT / "privacy").mkdir(exist_ok=True)
+    (ROOT / "privacy/index.html").write_text(privacy_page(), encoding="utf-8")
+    urls.append(f"{SITE}/privacy/")
     posts = available_posts()
     for post in posts:
         assert post["tag"] in CATEGORIES, f"{post['slug']}: tag must be one of {CATEGORIES}"

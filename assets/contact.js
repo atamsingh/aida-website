@@ -2,6 +2,22 @@
 // whether it was accepted. A copy also goes to the Google Form as a silent
 // backup. The thank-you message is shown only after Web3Forms confirms.
 (function () {
+  // Reports a conversion to Google Ads when the tag is installed and a
+  // send_to value is set in the page; otherwise it only notes the event.
+  function convert(sendTo, name, page) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: name, page: page });
+    if (sendTo && typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', { send_to: sendTo });
+    }
+  }
+
+  [].forEach.call(document.querySelectorAll('.js-booking'), function (link) {
+    link.addEventListener('click', function () {
+      convert(link.dataset.conv, 'booking_link_click', document.title);
+    });
+  });
+
   var form = document.querySelector('.contact-form');
   if (!form) return;
   var done = form.parentNode.querySelector('.form-done');
@@ -41,9 +57,7 @@
         if (!data || !data.success) throw new Error('not accepted');
         backup(payload);
         showThanks();
-        // Hook for ad conversion tracking once a Google tag is installed.
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'contact_form_submit', page: page });
+        convert(form.dataset.conv, 'contact_form_submit', page);
       })
       .catch(function () {
         backup(payload); // still try to keep a copy of the enquiry
