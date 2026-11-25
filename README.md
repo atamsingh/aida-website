@@ -7,6 +7,7 @@ Static site for https://www.aidaconsulting.ca/ — plain HTML and CSS, generated
 | Page | Purpose |
 | --- | --- |
 | `/` | Home: AI-led positioning, services, results, contact |
+| `/small-business/` | Landing page for small and medium business owners (main ad target) |
 | `/ai-consulting/` | Landing page for "AI consulting" searches and ads |
 | `/ai-agents/` | Landing page for AI agents, assistants and RAG |
 | `/data-engineering/` | Landing page for technical buyers: pipelines, warehouse, cloud cost |

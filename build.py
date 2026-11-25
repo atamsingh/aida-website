@@ -36,6 +36,7 @@ SRC_GARTNER = "https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lac
 SRC_GC_AI = "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/gc-ai-strategy-overview.html"
 
 NAV = [
+    ("small-business/", "Small business"),
     ("ai-consulting/", "AI consulting"),
     ("ai-agents/", "AI agents"),
     ("data-engineering/", "Data engineering"),
@@ -53,6 +54,7 @@ ICONS = {
     "check": '<circle cx="24" cy="24" r="18"/><path d="M15 24l6 6 12-13"/>',
     "people": '<circle cx="17" cy="17" r="6"/><circle cx="34" cy="20" r="4.5"/><path d="M5 40c0-7 5-12 12-12s12 5 12 12M31 30c6 0 11 4 11 10"/>',
     "db": '<ellipse cx="24" cy="12" rx="14" ry="5"/><path d="M10 12v24c0 2.8 6.3 5 14 5s14-2.2 14-5V12M10 24c0 2.8 6.3 5 14 5s14-2.2 14-5"/>',
+    "doc": '<path d="M14 6h14l8 8v28H14z"/><path d="M28 6v8h8M19 24h12M19 31h12M19 17h5"/>',
     "cloud": '<path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 3 7.500 7.500 0 0 1-1 15z"/><path d="M24 23v9M20 28l4 4 4-4"/>',
 }
 
@@ -295,10 +297,27 @@ FLOW = [
        "We ship it, watch it in production and train your people to run it.", None)]),
 ]
 
+# Everyday jobs AI can take over. The last field is a blog post slug, or None
+# until that post is written; when set, the tile links to the post.
+EXAMPLES = [
+    ("chat", "Knowledge", "Answers from your own documents",
+     "Staff ask a question and get the answer from your policies, manuals and past work, with the source attached.",
+     ["Answers with the source attached", "Works on your policies, manuals and files", "Access limited to the right people"], None),
+    ("chart", "Reporting", "Reports that build themselves",
+     "The weekly numbers arrive on Monday morning, without anyone copying and pasting between spreadsheets.",
+     ["Numbers pulled from your systems automatically", "One agreed version of each figure", "Delivered on a schedule"], None),
+    ("doc", "Paperwork", "Paperwork read for you",
+     "Invoices, forms and long documents are summarized and sorted, with a person checking what matters.",
+     ["Invoices, forms and long documents summarized", "Key details pulled into your systems", "A person reviews what matters"], None),
+    ("check", "Clean data", "One clean customer list",
+     "Duplicates and typos across your systems are found and fixed, so everyone works from the same records.",
+     ["Duplicates found and merged", "Names and addresses standardized", "Checks that keep it clean"], None),
+]
+
 ENGAGE = [
     ("Assess", "AI &amp; data assessment", "You want to use AI, but aren’t sure where or whether your data is ready.",
      "We review your processes, data and tools, then tell you plainly where AI will pay off and what has to be fixed first.",
-     ["A ranked list of AI opportunities", "Data gaps, risks and quick wins", "A prioritized roadmap"]),
+     ["A ranked list of AI opportunities", "Data gaps, risks and quick wins", "A prioritized roadmap", "Fixed scope and fee, quoted before we start"]),
     ("Build", "Project delivery", "You have a defined use case and need it built properly.",
      "We design, build and ship the solution end to end, working alongside your team in small increments.",
      ["A working, tested solution", "Documentation and runbooks", "Your team trained to own it"]),
@@ -389,6 +408,30 @@ def flow():
     </section>"""
 
 
+def example_link(slug, base=""):
+    if not slug:
+        return ""
+    return f'\n            <a class="link-arrow card-link" href="{base}blog/{slug}/">Read how it works</a>'
+
+
+def examples_section():
+    tiles = "\n".join(f"""          <article class="example">
+            {icon(ic)}
+            <h3>{title}</h3>
+            <p>{text}</p>{example_link(slug)}
+          </article>""" for ic, label, title, text, gets, slug in EXAMPLES)
+    return f"""    <section class="section section-alt" id="examples">
+      <div class="wrap">
+        <p class="eyebrow">What that looks like</p>
+        <h2>Four jobs AI can take off your plate.</h2>
+        <div class="examples">
+{tiles}
+        </div>
+        <p class="examples-more"><a class="link-arrow" href="small-business/">More for small and medium businesses</a></p>
+      </div>
+    </section>"""
+
+
 def home():
     engage = "\n".join(f"""          <article class="engage-card">
             <p class="engage-kicker">{k}</p>
@@ -405,11 +448,11 @@ def home():
       <div class="wrap hero-grid">
         <div>
           <p class="eyebrow">AI &amp; data consulting · Ottawa, Canada</p>
-          <h1>AI that works in production, built on <em>data you can trust.</em></h1>
-          <p class="lede">Most AI projects stall because the data underneath them isn’t ready. We are AI consultants with a data engineering backbone: we help Canadian organizations find where AI will pay off, build it properly, and fix the data it depends on.</p>
+          <h1>You run the business. <em>We handle the AI.</em></h1>
+          <p class="lede">AIDA helps small and medium-sized Canadian businesses put AI to work. We find where it will save time or win revenue, build it properly, and fix the data it depends on. Senior help, without hiring an AI team.</p>
           <div class="actions">
             {primary_cta("Tell us about your challenge")}
-            <a class="link-arrow" href="#flow">See how we can help</a>
+            <a class="link-arrow" href="#examples">See what AI can do for you</a>
           </div>
         </div>
 
@@ -417,6 +460,8 @@ def home():
       </div>
 {experience()}
     </section>
+
+{examples_section()}
 
 {flow()}
 
@@ -458,8 +503,8 @@ def home():
     </section>
 
 {contact()}"""
-    return layout("", "AI & Data Consulting in Ottawa | AIDA Consulting Solutions",
-                  "AI consultants with a data engineering backbone. We help Canadian organizations find where AI pays off, build it for production, and get their data AI-ready.",
+    return layout("", "AI Consulting for Small & Medium Businesses in Canada | AIDA Consulting",
+                  "You run the business, we handle the AI. Senior AI and data consulting for small and medium-sized Canadian businesses, based in Ottawa.",
                   body, "")
 
 
@@ -494,8 +539,8 @@ def landing(p):
             <p class="gets-label">What you get</p>
             <ul>
 {ul(gets)}
-            </ul>
-          </article>""" for ic, label, title, text, gets in p["offers"])
+            </ul>{example_link(o[5], "../") if len(o) > 5 else ""}
+          </article>""" for o in p["offers"] for ic, label, title, text, gets in [o[:5]])
     faq = "\n".join(f"""          <details>
             <summary>{q}</summary>
             <p>{a}</p>
@@ -582,6 +627,50 @@ def landing(p):
 
 PAGES = [
     {
+        "path": "small-business/",
+        "topic": "AI strategy: where to start",
+        "title": "AI for Small & Medium Businesses in Canada | AIDA Consulting",
+        "description": "You run the business, we handle the AI. Practical AI for small and medium-sized Canadian businesses: fixed scope, fixed fee, and no AI team required.",
+        "eyebrow": "AI for small and medium businesses",
+        "h1": "You run the business. <em>We handle the AI.</em>",
+        "lede": "You don’t need an AI team, a data team or a big budget to get real value from AI. You need someone senior who has done it before, who will tell you plainly what is worth doing, and who will build it for you.",
+        "cta": "Start a conversation",
+        "points": ["No AI or data team needed", "Plain language, no jargon", "Fixed scope and fee, quoted up front", "You work with Atam directly"],
+        "pain_heading": "You know AI matters. You don’t have time to become an expert.",
+        "fact": ("1 in 4", "Canadian businesses plan to use AI in the next 12 months, up from 1 in 7 a year earlier.", "Statistics Canada, Q3 2026", SRC_STATCAN),
+        "pains": [
+            "Everyone says we should be using AI. Nobody can tell me what for.",
+            "We tried a chatbot tool and it knew nothing about our business.",
+            "My team spends hours every week copying numbers between spreadsheets.",
+            "I can’t hire an AI specialist for one project.",
+        ],
+        "offer_heading": "Four jobs AI can take off your plate.",
+        "offers": EXAMPLES,
+        "steps_heading": "Start small. Prove it. Then grow.",
+        "steps": [
+            ("Talk", "A 30-minute conversation about your business and where the time goes. No preparation needed."),
+            ("Assess", "A short assessment with a fixed scope and a fixed fee, quoted before we start. You get a ranked list of what is worth doing."),
+            ("Build", "We build the first one, show you it works, and train your team to use it."),
+        ],
+        "bridge": {
+            "eyebrow": "How it is priced",
+            "heading": "Fixed scope. Fixed fee. Quoted before we start.",
+            "text": "Every engagement begins with a written scope and a fixed fee, so you know what you are getting and what it costs before you commit. If the honest answer is that AI is not worth it for you yet, we will tell you.",
+            "href": "ai-consulting/", "link": "See how the assessment works",
+        },
+        "results": ["chatbot", "ai", "saved"],
+        "results_heading": "Built by someone who has done it at scale.",
+        "faq": [
+            ("We are a small company. Is this really for us?", "Yes. The most useful first projects are small: one repetitive job that eats hours every week. If we can’t see a clear return, we will say so."),
+            ("Do we need to have our data organized first?", "No. Most businesses don’t. Finding out what you have and what shape it is in is part of the assessment."),
+            ("How much does it cost?", "It depends on the scope, which is why we agree a written scope and a fixed fee before any work starts, so there are no surprises."),
+            ("Will our information stay private?", "We design around your privacy obligations from the start, and we explain plainly where your data goes and who can see it before anything is built."),
+            ("Who does the work?", "Atam does. He has built data and AI systems at Stripe, Shopify and Fullscript, and you deal with him directly from the first call."),
+        ],
+        "contact_heading": "Not sure where AI fits in your business?",
+        "contact_text": "Tell us what you do and where the time goes. We will tell you honestly whether AI can help.",
+    },
+    {
         "path": "ai-consulting/",
         "topic": "AI strategy: where to start",
         "title": "AI Consulting in Ottawa & Across Canada | AIDA Consulting",
@@ -602,7 +691,7 @@ PAGES = [
         "offer_heading": "From “where do we start?” to AI running in your business.",
         "offers": [
             ("compass", "Step 1", "AI opportunity assessment", "We review how your organization works and identify where AI will genuinely save time or grow revenue.",
-             ["Use cases ranked by value and feasibility", "A data-readiness check for each", "Risks, costs and a phased roadmap"]),
+             ["Use cases ranked by value and feasibility", "A data-readiness check for each", "Risks, costs and a phased roadmap", "Fixed scope and fee, quoted before we start"]),
             ("ai", "Step 2", "Pilot to production", "We build your highest-value use case end to end, with the testing needed to trust it with real users.",
              ["A working, tested AI solution", "Measured accuracy and quality", "Your team trained to run it"]),
             ("people", "Ongoing", "AI advisor", "A senior AI and data lead alongside your team, part-time, for as long as you need direction.",
