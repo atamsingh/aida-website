@@ -1,0 +1,64 @@
+<p class="lead">Gartner <a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk" target="_blank" rel="noopener">predicts</a> that through 2026, organizations will abandon 60% of AI projects that are not supported by AI-ready data. The AI is rarely what lets these projects down. It is the information underneath, and the fix is unglamorous work that most projects skip.</p>
+
+<h2>The model is rarely the problem</h2>
+
+<p>The same Gartner release reports a survey of 1,203 data leaders. In it, 63% of organizations either do not have the right data management practices for AI or are not sure whether they do. These are people who manage data for a living. If they are unsure, a business that runs on spreadsheets, an accounting package and a shared drive has no reason to feel behind.</p>
+
+<p>I have spent more than ten years building data and AI systems. The projects I have seen struggle rarely struggled because the AI model was not clever enough. They struggled because the information the model was given was scattered, out of date, duplicated, or not trusted by the people who were meant to use the answers.</p>
+
+<p>An AI assistant that answers from your documents is only as good as those documents. If the price list it reads is last year’s, it will quote last year’s prices, politely and with complete confidence.</p>
+
+<h2>Six steps, and most projects start at the fourth</h2>
+
+<p>Every working AI system I have built sits on the same path. In plain English, it looks like this.</p>
+
+<ol>
+<li><strong>Sources.</strong> Where your information lives: the accounting package, the CRM (your customer database), spreadsheets, email, shared drives, and the heads of a few long-serving staff.</li>
+<li><strong>Pipelines.</strong> Getting that information collected and cleaned automatically, on a schedule, instead of someone copying and pasting it every Monday morning.</li>
+<li><strong>Trusted data.</strong> One agreed answer per question, with checks. One customer list. One meaning for “active customer”. One figure for last month’s sales that finance and sales both accept.</li>
+<li><strong>The AI layer.</strong> The model itself, connected to your trusted information so it can answer questions, draft documents or sort incoming requests.</li>
+<li><strong>Evaluation.</strong> Proving the answers are right before real users see them, by testing the system on questions where you already know the correct answer.</li>
+<li><strong>In use.</strong> Running day to day, monitored, and owned by someone on your team who knows what to do when it gets something wrong.</li>
+</ol>
+
+<p>Most projects start at step four, because that is the exciting part and it makes a good demo. The demo works because someone hand-picked a few clean documents for it. Then the system meets the real shared drive, with four versions of the staff handbook and a customer list nobody has tidied in years, and the answers stop being reliable.</p>
+
+<p><mark class="todo">[ATAM: if you have one, add two sentences on a real demo that looked great and then fell over on real data, with no employer or client named]</mark></p>
+
+<p>Step five gets skipped just as often. On one project I led, building AI software that interprets lab results for practitioners, evaluation mattered as much as the model. We kept people reviewing the output and used a second AI model to grade the first one’s answers. That system has since processed thousands of results in production, and the checking is the reason anyone was willing to rely on it.</p>
+
+<h2>The boring fix</h2>
+
+<p>The boring fix is to do steps one to three properly before you spend money on step four.</p>
+
+<p>Properly means in proportion. On one project I built a data quality framework with more than 200 automated rules watching over 30 datasets, because at that scale nobody can check by eye. A business with one office and forty staff does not need that. It does not need a data warehouse (a central database built for reporting) either.</p>
+
+<p>For a smaller business, the same three steps can be as simple as this: tidy the shared drive so there is one current version of each document, agree which customer list is the real one, and write down who keeps each of them up to date. If the same customer shows up three different ways in three systems, <a href="../three-versions-of-every-customer/">start with that problem</a>.</p>
+
+<p>Sometimes this work shows that AI is the wrong tool. If the real trouble was that nobody trusted the Monday report, one clean customer list and one agreed sales figure may be all you need. That is a good outcome, and a cheap one.</p>
+
+<h2>How to tell which step you are stuck on</h2>
+
+<p>Pick one question your business asks every week, such as “which quotes are still open?” or “which invoices are overdue?”. Work through the three checks below in order and stop at the first “no”. That is your step.</p>
+
+<ul>
+<li><strong>Can you name every place the answer lives?</strong> If not, you are at step one.</li>
+<li><strong>Does the information arrive without someone exporting or retyping it?</strong> If not, you are at step two.</li>
+<li><strong>Would two people, asked separately, give you the same answer?</strong> If not, you are at step three.</li>
+</ul>
+
+<p>If you get three yeses and the task still eats hours of reading, writing or sorting, you are ready for step four. If you already have an AI tool that people have quietly stopped using, look at steps five and six: either nobody proved its answers were right, or nobody owns it.</p>
+
+<p>For a fuller checklist, read <a href="../is-your-business-ready-for-ai/">five signs your business is ready for AI, and three signs it isn’t</a>.</p>
+
+<h2>What to do this week</h2>
+
+<ol>
+<li><strong>Choose one weekly question.</strong> Not a strategy, one question. Write it at the top of a page.</li>
+<li><strong>List every place the answer lives today.</strong> Include personal spreadsheets, inboxes and paper.</li>
+<li><strong>Ask two colleagues for the answer separately.</strong> Compare what they tell you and how long it took each of them.</li>
+<li><strong>Name one owner</strong> for the list or document that matters most to that question, and move the old copies into an archive folder.</li>
+<li><strong>Before you sign for any AI tool,</strong> ask the vendor which of the six steps it covers and who is expected to do the rest.</li>
+</ol>
+
+<p>If you would like a second opinion on where you stand, that is how my <a href="../../ai-consulting/">AI consulting</a> work begins: a conversation, then a short assessment with a fixed scope and a fixed fee quoted before any work starts.</p>

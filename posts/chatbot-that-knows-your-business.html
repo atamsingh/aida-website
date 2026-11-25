@@ -1,0 +1,73 @@
+<p class="lead">A general-purpose chatbot has read the internet, not your staff handbook, your price list or your past proposals. An assistant can answer from your own documents and show where each answer came from, but only if those documents are in decent shape.</p>
+
+<h2>Why the generic tool knew nothing about you</h2>
+
+<p>A common verdict after a first try with a chatbot is some version of “it knew nothing about us.” That verdict is accurate. These tools learned from public text. They have never seen your returns policy, your product specs or the proposal you sent last spring.</p>
+
+<p>Ask one about your vacation carry-over rule and it will either say it doesn’t know or, worse, give a confident answer that describes a typical company’s policy. Neither helps the person who asked.</p>
+
+<p>The fix is not a smarter model. It is handing the model your documents to read at the moment the question is asked.</p>
+
+<h2>How an assistant answers from your own files</h2>
+
+<p>The technique is called retrieval, or RAG (retrieval-augmented generation). It works in two steps. First the system looks up the few passages in your files that are most relevant to the question. Then it writes an answer from those passages and shows which documents it used.</p>
+
+<p>Think of a new hire who reads and writes well but started this morning. They don’t know your policies. Hand them the right three pages, though, and they can give a clear answer and tell you which page it came from. Retrieval is the step that hands over the pages.</p>
+
+<p>The source link matters more than it looks. It lets the person asking check the answer in seconds, and it tells you which document to fix when an answer is wrong.</p>
+
+<p>On one project I built an internal chatbot of this kind for senior leaders. It gave them answers specific to their context, drawn from internal information, with minimal manual work. It was useful because it answered from the organization’s own material, not because the model was unusually clever. <mark class="todo">[ATAM: one example of the kind of question leaders asked it, without naming the employer]</mark></p>
+
+<h2>What it is good for</h2>
+
+<p>Retrieval suits questions where the answer already exists in writing and the real cost is finding it, or interrupting the one person who knows where it is.</p>
+
+<ul>
+<li><strong>The staff handbook.</strong> Leave, expenses, benefits, who approves what.</li>
+<li><strong>Policies.</strong> Returns, warranties, credit terms, safety procedures.</li>
+<li><strong>Product specs.</strong> Dimensions, compatibility, lead times, what is included.</li>
+<li><strong>Past proposals.</strong> How you scoped and worded similar work, so the next quote starts from a draft and not a blank page.</li>
+<li><strong>How-to questions.</strong> How to issue a credit note, set up a new supplier or close out a job.</li>
+</ul>
+
+<h2>What makes it work or fail</h2>
+
+<p>The model is rarely the problem. Four things around it decide whether people trust the answers.</p>
+
+<h3>Documents that are current and organized</h3>
+
+<p>The assistant quotes whatever it finds. If your shared drive holds four versions of the price list, it may answer from the wrong one, politely and with a source. This is the document version of having <a href="../three-versions-of-every-customer/">three versions of every customer</a>. Decide which copy is the official one and archive the rest before you connect anything.</p>
+
+<h3>Access rules</h3>
+
+<p>The assistant should only look in files the person asking is already allowed to open. Without that rule, a casual question about salaries gets answered from the payroll folder. Set this up at the start, because it is hard to add later.</p>
+
+<h3>Testing against real questions</h3>
+
+<p>Collect questions your staff have actually asked, write down the correct answers, and run the assistant against that list. Run the list again every time you add documents or change a setting. A demo with three friendly questions tells you very little.</p>
+
+<h3>A person checking where a wrong answer is costly</h3>
+
+<p>On another project I led the build of AI software that interprets lab results for practitioners. It used retrieval, but it did not rely on retrieval alone. A second AI model graded the answers (this is called an “LLM judge”), and people reviewed the output, because an error there matters. That system has processed thousands of results in production. <mark class="todo">[ATAM: how you decided which results went to a human reviewer]</mark></p>
+
+<p>Your equivalent is simpler. An answer about parking can go straight to staff. An answer about a contract term, a safety step or a customer refund should point to the source and be confirmed by someone who owns that decision.</p>
+
+<h2>When it is the wrong tool</h2>
+
+<p>Retrieval reads passages. It does not add up columns. “What were our sales in Ontario last quarter” is a question for a report built on your accounting or CRM data, not for a document assistant.</p>
+
+<p>It also cannot retrieve what was never written down. If the real process lives in one long-serving employee’s head, the first job is to get it on paper. That is worth doing whether or not you ever add AI.</p>
+
+<p>If you have a dozen documents and everyone knows where they are, a tidy folder and the search box will do. And if you want the assistant to act, such as updating a record or sending the quote, that is a different kind of system, an <a href="../../ai-agents/">AI agent</a>, with its own checks.</p>
+
+<h2>What to do this week</h2>
+
+<ol>
+<li><strong>Collect twenty real questions.</strong> Ask around for the things people asked each other this month. Check email and chat threads for more.</li>
+<li><strong>Find where each answer lives.</strong> Note the document beside each question. Mark the ones with no written answer, and the ones with two conflicting answers.</li>
+<li><strong>Pick one clean area to start.</strong> Choose the set of documents that is most current and has a clear owner. The staff handbook is a common first choice.</li>
+<li><strong>List who may see what.</strong> Write down the folders that must stay restricted, such as payroll, HR files and contracts.</li>
+<li><strong>Mark the costly answers.</strong> Decide which topics need a person to confirm before anyone acts on the answer.</li>
+</ol>
+
+<p>That list is most of what an assessment needs, and it is useful even if you go no further. If you want help with the next step, I start every engagement with a conversation, then a short assessment with a fixed scope and a fixed fee quoted before any work begins.</p>

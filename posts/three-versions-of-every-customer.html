@@ -1,0 +1,61 @@
+<p class="lead">Most businesses hold the same customer in several places, spelled a little differently in each one. It is a dull problem that costs more than it looks, and it needs fixing before you point any AI tool at your records.</p>
+
+<h2>How one customer becomes three</h2>
+
+<p>Take a made-up customer. In your accounting system they are “Northside Plumbing Ltd.” at a post office box, because that is where the invoices go. In the CRM, the system your sales staff use to track customers and deals, they are “North Side Plumbing” at a street address. In the spreadsheet your service coordinator keeps, they are “Northside (Dave)” with a cell number and no address at all.</p>
+
+<p>Nobody did anything wrong. Each record was typed by a different person, at a different time, for a different job. Bookkeeping needed the legal name and the billing address. Sales copied what was on the business card. The coordinator wrote down what it takes to get a truck to the right door.</p>
+
+<p>What is missing is a shared identifier: one customer number that every system uses for the same customer. Without it, the only thing linking the three records is the name and address, and those are typed by hand. “Ltd.” or “Limited”, “St.” or “Street”, a suite number in one place and not the other. A person sees one company. Software sees three strangers.</p>
+
+<h2>What it costs you</h2>
+
+<p>The costs are small and frequent, which is why the problem survives for years.</p>
+
+<ul>
+<li><strong>Duplicate mailings.</strong> The same customer gets two copies of the price notice, one of them at an address they left a while ago.</li>
+<li><strong>Wrong totals per customer.</strong> Sales are split across two or three records, so your largest customer looks like three medium ones and gets treated that way.</li>
+<li><strong>Embarrassing calls.</strong> Someone phones to win back a “lapsed” account that placed an order last week under the other spelling.</li>
+<li><strong>Reports that disagree.</strong> The CRM counts one number of active customers, accounting counts another, and the Monday meeting is spent arguing about which is right.</li>
+</ul>
+
+<p>Sometimes the cost is more serious. On one project I built a pipeline, a series of automated steps, that rewrote every address into one standard format. Once the addresses were all written the same way, duplicates appeared that nobody had been able to see before, and finding them helped with fraud detection. <mark class="todo">[ATAM: one sentence on what the duplicate addresses revealed, if you can share it without naming the employer]</mark></p>
+
+<h2>Why it matters before any AI project</h2>
+
+<p>Someone who has worked for you for five years knows that Northside and North Side are the same company. They correct for it without thinking. Software does not, and an AI assistant is software.</p>
+
+<p>Ask an AI assistant who your top ten customers were this year and it will add up whatever records it is given. If one customer is split across three records, the ranking is wrong. The answer will still arrive in tidy, confident sentences, with nothing to tell you that the list underneath was duplicated. An automated report has the same weakness.</p>
+
+<p>That is why I look at customer records before I look at AI tools. Getting them into a state a machine can rely on is a large part of what I mean by <a href="../../ai-ready-data/">AI-ready data</a>, and skipping it is one of the reasons I describe in <a href="../why-ai-projects-fail/">Why most AI projects fail, and the boring fix</a>.</p>
+
+<h2>How it gets fixed</h2>
+
+<p>The fix is four steps, and none of them is clever.</p>
+
+<ol>
+<li><strong>Standardize names and addresses.</strong> Rewrite them all into one format: one way of writing “Limited”, one way of writing street types and suite numbers, one layout for postal codes and phone numbers. This step alone makes many duplicates obvious.</li>
+<li><strong>Match the records that are probably the same.</strong> Software compares the cleaned records and scores how alike they are. The near-certain pairs are linked automatically. The uncertain ones go to a person who knows the customers, who says yes or no.</li>
+<li><strong>Pick one system as the source of truth.</strong> Decide which system holds the official name, address and customer number. The others copy from it. Changes are made there and nowhere else.</li>
+<li><strong>Add checks at the point of entry.</strong> When someone adds a customer, the system looks for a likely match first and insists on a properly formatted address. This is what keeps the list clean after the clean-up.</li>
+</ol>
+
+<p>I would not hand step two to an AI model and walk away. It can be useful for suggesting likely matches, but a wrong merge blends two customers’ histories together, and that is harder to undo than a duplicate. Keep a person on the uncertain cases.</p>
+
+<h2>Unglamorous, and never quite finished</h2>
+
+<p>I will be honest about this work. Nobody gets excited about it, and it is never completely done. Customers move, companies rename themselves, a new hire types fast on a busy day. A clean list starts drifting the moment you stop watching it.</p>
+
+<p>So the watching has to be automatic. On one project I built a data quality framework with more than 200 automated rules across more than 30 datasets, each one checking something that people would otherwise have had to remember to check. You do not need anything on that scale. The principle is the same at any size: checks that run by themselves do better than a big clean-up every few years.</p>
+
+<h2>What to do this week</h2>
+
+<ol>
+<li><strong>Test twenty customers.</strong> Pick twenty you know well and look each one up in accounting, the CRM and the main spreadsheet. Count how many match exactly on name and address. That number tells you how big the problem is.</li>
+<li><strong>Sort a list by something other than name.</strong> Export your customers to a spreadsheet and sort by postal code, then by phone number. Duplicates that spelling hides will sit next to each other.</li>
+<li><strong>Name the source of truth.</strong> Decide which system holds the official customer name and address, and who is allowed to change them. Write it down and tell the team.</li>
+<li><strong>Agree on one format.</strong> Put on a single page how you write company names, addresses and phone numbers, and pin it where new customers get entered.</li>
+<li><strong>Search before you add.</strong> Ask everyone to search by phone number or postal code before creating a customer, not only by name.</li>
+</ol>
+
+<p>If the twenty-customer test turns up more mismatches than you expected, that is worth a conversation. I start every engagement with one, followed by a short assessment with a fixed scope and a fee quoted before any work begins.</p>

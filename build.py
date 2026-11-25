@@ -5,6 +5,7 @@ Edit the content in this file, then run:  python3 build.py
 It rewrites index.html, the landing pages and sitemap.xml. No dependencies.
 """
 import hashlib
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -35,12 +36,14 @@ SRC_STATCAN = "https://www150.statcan.gc.ca/n1/daily-quotidien/260831/dq260831a-
 SRC_GARTNER = "https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk"
 SRC_GC_AI = "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/gc-ai-strategy-overview.html"
 
+# (link, label, shown in the header menu). Everything is shown in the footer.
 NAV = [
-    ("small-business/", "Small business"),
-    ("ai-consulting/", "AI consulting"),
-    ("ai-agents/", "AI agents"),
-    ("data-engineering/", "Data engineering"),
-    ("ai-ready-data/", "AI-ready data"),
+    ("small-business/", "Small business", True),
+    ("ai-consulting/", "AI consulting", True),
+    ("ai-agents/", "AI agents", True),
+    ("data-engineering/", "Data engineering", True),
+    ("ai-ready-data/", "AI-ready data", False),
+    ("blog/", "Blog", True),
 ]
 
 ICONS = {
@@ -70,12 +73,14 @@ def ul(items, indent="              "):
 
 # ---------------------------------------------------------------- layout
 
-def layout(path, title, description, body, base):
+def layout(path, title, description, body, base, extra_head=""):
     """path: '' for home or 'slug/'. base: '' for home or '../' for subpages."""
-    nav = "\n".join(
-        '        <a href="%s%s"%s>%s</a>' % (base, href, ' aria-current="page"' if href == path else "", label)
-        for href, label in NAV
-    )
+    def links(header_only):
+        return "\n".join(
+            '        <a href="%s%s"%s>%s</a>' % (base, href, ' aria-current="page"' if path.startswith(href) else "", label)
+            for href, label, in_header in NAV if in_header or not header_only
+        )
+    nav, footer_nav = links(True), links(False)
     about = "#about" if path == "" else f"{base}#about"
     return f"""<!doctype html>
 <html lang="en-CA">
@@ -99,7 +104,7 @@ def layout(path, title, description, body, base):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{base}styles.css?v={version("styles.css")}">
-
+{extra_head}
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
@@ -146,7 +151,7 @@ def layout(path, title, description, body, base):
     <div class="wrap footer-inner">
       <p>© <span id="year">2026</span> AIDA Consulting Solutions · Ottawa, Canada</p>
       <nav aria-label="Footer">
-{nav}
+{footer_nav}
         <a href="{about}">About</a>
       </nav>
     </div>
@@ -265,6 +270,152 @@ R = {
     "trained": ("Team trained", "Architecture documented and developers trained to maintain, test and extend the pipelines after hand-over."),
 }
 
+# ---------------------------------------------------------------- blog
+# The body of each post is an HTML fragment in posts/<slug>.html.
+# "featured" posts are the ones shown on the home page.
+AUTHOR = "Atam Singh"
+POSTS = [
+    {"slug": "chatbot-that-knows-your-business", "featured": True, "date": "2026-11-25",
+     "title": "A chatbot that actually knows your business",
+     "summary": "How an AI assistant can answer from your own documents and show its sources, and what has to be true for it to work.",
+     "description": "Generic chatbots know the internet, not your business. How an assistant can answer from your own documents, what makes it work, and when to skip it."},
+    {"slug": "weekly-report-that-builds-itself", "featured": True, "date": "2026-11-25",
+     "title": "The weekly report that builds itself",
+     "summary": "The hours spent copying numbers into a weekly report can be automated, and it is mostly plumbing, not AI.",
+     "description": "How to automate the weekly report someone builds by hand: pull the numbers, agree the definitions, deliver on a schedule. No data team needed."},
+    {"slug": "why-ai-projects-fail", "featured": True, "date": "2026-11-25",
+     "title": "Why most AI projects fail, and the boring fix",
+     "summary": "AI projects rarely fail because of the AI. They fail on scattered, untrusted information, and the fix is boring.",
+     "description": "Most AI projects fail on the information underneath, not the AI. Here are the six steps, the boring fix, and how to tell where you are stuck."},
+    {"slug": "is-your-business-ready-for-ai", "featured": True, "date": "2026-11-25",
+     "title": "Five signs your business is ready for AI, and three signs it isn’t",
+     "summary": "Eight quick tests to tell whether a first AI project will pay off, or whether “not yet” is the smarter answer.",
+     "description": "A practical self-check: five signs your business is ready for a first AI project, three signs it is not yet, and what to do about each."},
+    {"slug": "three-versions-of-every-customer", "featured": False, "date": "2026-11-25",
+     "title": "Why you have three versions of every customer",
+     "summary": "The same customer, spelled three ways in three systems: why it happens, what it costs, and the fix that comes before AI.",
+     "description": "Why the same customer shows up three ways in your accounting system, CRM and spreadsheets, what it costs, and how to fix it before any AI project."},
+    {"slug": "is-your-data-safe-with-ai", "featured": False, "date": "2026-11-25",
+     "title": "Is your data safe with AI? Questions every Canadian business should ask",
+     "summary": "Seven plain questions to ask before business information goes into an AI tool, and three habits that lower risk.",
+     "description": "Seven plain questions to ask any AI vendor before your business information goes in, plus three simple habits that lower the risk today."},
+]
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August",
+          "September", "October", "November", "December"]
+
+
+def post_body(post):
+    f = ROOT / "posts" / f"{post['slug']}.html"
+    return f.read_text(encoding="utf-8").strip() if f.exists() else None
+
+
+def available_posts():
+    return [p for p in POSTS if post_body(p)]
+
+
+def post_meta(post):
+    y, m, d = post["date"].split("-")
+    words = len(re.sub(r"<[^>]+>", " ", post_body(post)).split())
+    return f"{MONTHS[int(m) - 1]} {int(d)}, {y}", max(1, round(words / 220))
+
+
+def post_cards(posts, base):
+    cards = []
+    for p in posts:
+        date, minutes = post_meta(p)
+        cards.append(f"""          <a class="post-card" href="{base}blog/{p['slug']}/">
+            <span class="post-card-meta">{minutes} min read</span>
+            <strong>{p['title']}</strong>
+            <span class="post-card-summary">{p['summary']}</span>
+            <span class="post-card-more">Read the post</span>
+          </a>""")
+    return "\n".join(cards)
+
+
+def home_blog():
+    posts = [p for p in available_posts() if p["featured"]][:4]
+    if not posts:
+        return ""
+    return f"""    <section class="section section-alt" id="blog">
+      <div class="wrap">
+        <p class="eyebrow">From the blog</p>
+        <h2>Plain answers to the questions owners ask.</h2>
+        <div class="post-cards post-cards-4">
+{post_cards(posts, "")}
+        </div>
+        <p class="examples-more"><a class="link-arrow" href="blog/">All posts</a></p>
+      </div>
+    </section>
+
+"""
+
+
+def blog_index():
+    body = f"""    <section class="hero hero-blog" id="top">
+      <div class="wrap">
+        <p class="eyebrow">Blog</p>
+        <h1>Plain answers about <em>AI and data.</em></h1>
+        <p class="lede">Written for people who run a business, not a data team. No jargon, no hype, and honest about when AI is the wrong tool.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="wrap">
+        <div class="post-cards">
+{post_cards(available_posts(), "../")}
+        </div>
+      </div>
+    </section>
+
+{contact()}"""
+    return layout("blog/", "Blog: Plain Answers About AI and Data | AIDA Consulting",
+                  "Plain-language posts about putting AI and data to work in a business, by Atam Singh of AIDA Consulting.",
+                  body, "../")
+
+
+def post_page(post):
+    date, minutes = post_meta(post)
+    others = [p for p in available_posts() if p["slug"] != post["slug"]][:3]
+    more = f"""
+    <section class="section section-alt">
+      <div class="wrap">
+        <p class="eyebrow">Keep reading</p>
+        <div class="post-cards">
+{post_cards(others, "../../")}
+        </div>
+      </div>
+    </section>
+""" if others else ""
+    body = f"""    <article class="post">
+      <header class="post-header">
+        <div class="wrap post-wrap">
+          <p class="eyebrow"><a href="../">Blog</a></p>
+          <h1>{post['title']}</h1>
+          <p class="post-meta">By <a href="../../#about">{AUTHOR}</a> · {date} · {minutes} min read</p>
+        </div>
+      </header>
+      <div class="wrap post-wrap post-body">
+{post_body(post)}
+      </div>
+      <div class="wrap post-wrap">
+        <aside class="post-author">
+          {avatar("../../")}
+          <p><strong>{AUTHOR}</strong> is the founder of AIDA Consulting Solutions. He has spent more than 10 years building data and AI systems, at Stripe, Shopify and Fullscript and in the federal public sector.</p>
+        </aside>
+      </div>
+    </article>
+{more}
+{contact("Want to talk through how this applies to you?", "Tell us what you do and where the time goes. We will tell you honestly whether we can help.", page="Blog: " + post['title'])}"""
+    ld = f"""  <script type="application/ld+json">
+  {{ "@context": "https://schema.org", "@type": "BlogPosting", "headline": "{post['title']}", "datePublished": "{post['date']}",
+    "author": {{ "@type": "Person", "name": "{AUTHOR}", "url": "{LINKEDIN}" }},
+    "publisher": {{ "@type": "Organization", "name": "AIDA Consulting Solutions" }},
+    "mainEntityOfPage": "{SITE}/blog/{post['slug']}/" }}
+  </script>
+"""
+    return layout(f"blog/{post['slug']}/", f"{post['title']} | AIDA Consulting", post["description"], body, "../../", ld)
+
+
 # ---------------------------------------------------------------- home page
 
 # (name, logo file in assets/logos or None for plain text, title shown on hover)
@@ -302,16 +453,16 @@ FLOW = [
 EXAMPLES = [
     ("chat", "Knowledge", "Answers from your own documents",
      "Staff ask a question and get the answer from your policies, manuals and past work, with the source attached.",
-     ["Answers with the source attached", "Works on your policies, manuals and files", "Access limited to the right people"], None),
+     ["Answers with the source attached", "Works on your policies, manuals and files", "Access limited to the right people"], "chatbot-that-knows-your-business"),
     ("chart", "Reporting", "Reports that build themselves",
      "The weekly numbers arrive on Monday morning, without anyone copying and pasting between spreadsheets.",
-     ["Numbers pulled from your systems automatically", "One agreed version of each figure", "Delivered on a schedule"], None),
+     ["Numbers pulled from your systems automatically", "One agreed version of each figure", "Delivered on a schedule"], "weekly-report-that-builds-itself"),
     ("doc", "Paperwork", "Paperwork read for you",
      "Invoices, forms and long documents are summarized and sorted, with a person checking what matters.",
      ["Invoices, forms and long documents summarized", "Key details pulled into your systems", "A person reviews what matters"], None),
     ("check", "Clean data", "One clean customer list",
      "Duplicates and typos across your systems are found and fixed, so everyone works from the same records.",
-     ["Duplicates found and merged", "Names and addresses standardized", "Checks that keep it clean"], None),
+     ["Duplicates found and merged", "Names and addresses standardized", "Checks that keep it clean"], "three-versions-of-every-customer"),
 ]
 
 ENGAGE = [
@@ -409,7 +560,7 @@ def flow():
 
 
 def example_link(slug, base=""):
-    if not slug:
+    if not slug or not (ROOT / "posts" / f"{slug}.html").exists():
         return ""
     return f'\n            <a class="link-arrow card-link" href="{base}blog/{slug}/">Read how it works</a>'
 
@@ -480,7 +631,7 @@ def home():
          "The kind of outcomes you can expect.",
          "Results Atam has led or delivered over the past decade.")}
 
-    <section class="section" id="about">
+{home_blog()}    <section class="section" id="about">
       <div class="wrap about">
         <div>
           <p class="eyebrow">Who you’ll work with</p>
@@ -920,6 +1071,22 @@ def main():
         out.mkdir(exist_ok=True)
         (out / "index.html").write_text(landing(p), encoding="utf-8")
         urls.append(f"{SITE}/{p['path']}")
+    posts = available_posts()
+    missing = [p["slug"] for p in POSTS if p not in posts]
+    if posts:
+        (ROOT / "blog").mkdir(exist_ok=True)
+        (ROOT / "blog/index.html").write_text(blog_index(), encoding="utf-8")
+        urls.append(f"{SITE}/blog/")
+        for post in posts:
+            out = ROOT / "blog" / post["slug"]
+            out.mkdir(exist_ok=True)
+            (out / "index.html").write_text(post_page(post), encoding="utf-8")
+            urls.append(f"{SITE}/blog/{post['slug']}/")
+            todo = post_body(post).count('class="todo"')
+            if todo:
+                print(f"  note: {post['slug']} has {todo} [ATAM] marker(s) to fill in")
+    for slug in missing:
+        print(f"  note: posts/{slug}.html not found, post skipped")
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")

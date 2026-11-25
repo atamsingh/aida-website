@@ -1,0 +1,60 @@
+<p class="lead">If someone in your business spends hours every week copying numbers into a report, that work can be automated without hiring a data team. It is mostly plumbing, not AI, and it is often the best first project you can do.</p>
+
+<h2>The report somebody builds by hand</h2>
+
+<p>Most businesses have one. It might be called the Monday report, the weekly numbers or the ops update. Somebody exports a file from the accounting package, opens the CRM (the system that tracks customers and sales), pulls a few figures from a shared spreadsheet, and pastes it all into a template.</p>
+
+<p>It takes a few hours, every week, from a person who is usually good at their job and could be doing something more useful. The numbers are already days old when they arrive. And because every step is manual, one figure pasted into the wrong row can quietly change a total.</p>
+
+<p>I have seen the extreme version. Inside a federal department, weekly funding reports were being printed and mailed to the people who needed them. I built the first dashboard to replace them. The information itself did not change. What changed was that people could see it when it was current, not when the envelope arrived. <mark class="todo">[ATAM: one concrete detail about the printed reports, for example how long they took to reach people, if you can share it]</mark></p>
+
+<h2>The three parts of a report that builds itself</h2>
+
+<p>An automated report has three parts. None of them is exotic.</p>
+
+<h3>1. Pull the numbers from where they live</h3>
+
+<p>Your accounting system, your CRM and most modern business software can hand over their data automatically, through a built-in connection or a scheduled export. A small program collects those numbers every night and puts them in one place, usually a simple database. This is called a data pipeline: a set of steps that moves data from one place to another without anyone touching it.</p>
+
+<p>Spreadsheets can feed the pipeline too, as long as they keep the same layout from week to week.</p>
+
+<h3>2. Agree one definition for each figure</h3>
+
+<p>This is the part that takes real thought, and it is not technical. “Revenue” can mean what you invoiced, what you were paid or what you booked. An “active customer” can be anyone who bought in the last 30 days, anyone who bought in the last year, or anyone with an open contract.</p>
+
+<p>When a person builds the report by hand, these choices live in their head. Automation forces you to write each one down once, in one place, so the sales number in the report matches the sales number in the meeting.</p>
+
+<h3>3. Deliver it on a schedule</h3>
+
+<p>The result goes out the same way every time. That can be a dashboard (a web page of charts and figures that updates itself), an email that lands first thing on Monday, or both. Pick whichever your team will actually look at. For many owners, a short email with five numbers beats a dashboard with fifty. <mark class="todo">[ATAM: name the dashboard or reporting tool you usually suggest for a business this size, if you want one mentioned]</mark></p>
+
+<h2>Why “mostly plumbing” is good news</h2>
+
+<p>None of the three parts needs artificial intelligence. It is pipes, definitions and a timer. That makes the work predictable to build and easy to check: the automated number either matches the hand-built one or it does not.</p>
+
+<p>It also pays back quickly. The hours come back the first week it runs, and they keep coming back. This kind of <a href="../../data-engineering/">data engineering</a> is rarely glamorous, but it is the work I most often suggest doing first.</p>
+
+<p>It is also the foundation AI needs later. <a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk" target="_blank" rel="noopener">Gartner predicts</a> that through 2026, 60% of AI projects not supported by AI-ready data will be abandoned. A business with agreed, current numbers in one place has already done a good share of that preparation.</p>
+
+<p>Once the plumbing works, AI can add something useful on top. A language model can write a plain-language summary of what changed this week, so the reader does not have to compare columns. It can also flag unusual numbers, such as a regular customer whose orders dropped by half. Treat both as a prompt for a person to look, not as a verdict.</p>
+
+<h2>Where these projects go wrong</h2>
+
+<p><strong>Nobody agrees on the definitions.</strong> Sales counts a deal when it is signed. Finance counts it when the invoice is paid. Automation does not settle that argument, it only publishes the disagreement faster. Someone with authority has to choose, and the choice has to be written down.</p>
+
+<p><strong>The source data is entered inconsistently.</strong> The same customer is typed three different ways, deals have no close date, invoices are coded to whatever category was at the top of the list. An automated report reproduces all of it faithfully. I have written separately about <a href="../three-versions-of-every-customer/">why you have three versions of every customer</a>. The upside is that an automated report makes these problems visible, so you can fix them where the data is entered.</p>
+
+<p><strong>The report measures everything and informs nothing.</strong> Once adding a number is free, it is tempting to add them all. Then nobody reads past the first screen.</p>
+
+<p>On one project I built a tool that monitored a business’s “vital signs”, the few measures that show whether things are healthy. It handled 3.2 million data points a day and was used by more than 3,500 people. The idea works at any size: choose the handful of numbers that tell you whether the business is well, and put those first.</p>
+
+<h2>What to do this week</h2>
+
+<ol>
+<li><strong>Find the report and time it.</strong> Ask the person who builds it to note how long it takes this week, and every place they go to get a number.</li>
+<li><strong>Write a one-sentence definition for each figure.</strong> Show the list to the people who read the report. Wherever two of them disagree, you have found the real work.</li>
+<li><strong>Cross out what nobody uses.</strong> Ask each reader which numbers have changed a decision they made. Keep those, and question the rest.</li>
+<li><strong>Check what your software can already do.</strong> Look in the settings of your accounting package and CRM for words such as “integrations”, “exports” or “scheduled reports”. You may be closer than you think.</li>
+</ol>
+
+<p>With those four things in hand, automating the report becomes a small, well-defined job. If you would like help with it, every engagement I take on starts with a conversation, followed by a short assessment with a fixed scope and a fixed fee quoted before any work starts.</p>
