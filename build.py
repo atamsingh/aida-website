@@ -278,9 +278,9 @@ R = {
 # "featured" posts are the ones shown on the home page.
 AUTHOR = "Atam Singh"
 # Every post's "tag" must be one of these; they are the filter buttons on /blog/.
-CATEGORIES = ["Getting started", "AI assistants", "Data foundations", "Privacy and risk", "News"]
+CATEGORIES = ["Getting started", "AI agents and assistants", "Data foundations", "Cost and payoff", "Privacy and risk", "News"]
 POSTS = [
-    {"slug": "chatbot-that-knows-your-business", "tag": "AI assistants", "featured": True, "date": "2026-11-25",
+    {"slug": "chatbot-that-knows-your-business", "tag": "AI agents and assistants", "featured": True, "date": "2026-11-25",
      "title": "A chatbot that actually knows your business",
      "summary": "How an AI assistant can answer from your own documents and show its sources, and what has to be true for it to work.",
      "description": "Generic chatbots know the internet, not your business. How an assistant can answer from your own documents, what makes it work, and when to skip it."},

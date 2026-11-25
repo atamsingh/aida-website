@@ -1,18 +1,18 @@
 # Blog topics
 
 ## Backlog (evergreen; use the next unused one when no news is worth a post)
-- [ ] Let AI read the paperwork: invoices, forms and long documents, and where a person still needs to check (AI assistants)
+- [ ] Let AI read the paperwork: invoices, forms and long documents, and where a person still needs to check (AI agents and assistants)
 - [ ] Buy an AI tool or build your own? A decision guide for owners (Getting started)
-- [ ] What drives the cost of an AI project, without quoting prices (Getting started)
-- [ ] How to tell if an AI answer is right: testing and human review explained simply (AI assistants)
+- [ ] What drives the cost of an AI project, without quoting prices (Cost and payoff)
+- [ ] How to tell if an AI answer is right: testing and human review explained simply (AI agents and assistants)
 - [ ] What an AI assessment actually produces, and how to use it (Getting started)
 - [ ] A one-page AI guideline for your staff: what to put in it (Privacy and risk)
-- [ ] AI agents explained: when software should act, and when it should ask first (AI assistants)
+- [ ] AI agents explained: when software should act, and when it should ask first (AI agents and assistants)
 - [ ] When a spreadsheet stops being enough: signs you need a proper database (Data foundations)
 - [ ] What "AI-ready data" means for a 30-person company (Data foundations)
 - [ ] Questions to ask an AI consultant before you hire one (Getting started)
-- [ ] How to measure whether an AI project paid off (Getting started)
-- [ ] Your cloud bill keeps creeping up: where to look first (Data foundations)
+- [ ] How to measure whether an AI project paid off (Cost and payoff)
+- [ ] Your cloud bill keeps creeping up: where to look first (Cost and payoff)
 
 ## Published log (date, slug, title, sources)
 - 2026-11-25, chatbot-that-knows-your-business, A chatbot that actually knows your business
