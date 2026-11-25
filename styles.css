@@ -155,7 +155,8 @@ p { margin: 0; }
   body { font-size: 16px; }
   .wrap { width: min(1120px, 100% - 36px); }
   .brand-sub { display: none; }
-  .site-header nav { gap: 16px; font-size: 14px; }
+  .site-header nav a:not(.btn) { display: none; }
+  .brand { white-space: nowrap; }
   .person { flex-direction: column; padding: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
