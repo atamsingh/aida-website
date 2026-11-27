@@ -1,0 +1,12 @@
+services:
+  aida-website:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    command: caddy file-server --root /srv --listen :8000
+    volumes:
+      - ./:/srv:ro
+    networks: [homebase]
+
+networks:
+  homebase:
+    external: true
